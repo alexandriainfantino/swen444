@@ -1,9 +1,12 @@
 {% extends "base.jinja" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/newsFeed.css') }}" />
+{% endblock %}
 
 {% block body %}
 
-    <div style="margin: 100px">
-        <div style="font-size: 70px">
+    <div class="newsContainer">
+        <div class="newsTitle">
             News
         </div>
         <div>
@@ -12,7 +15,7 @@
                     {{ n['title'] }} - {{ n['date'] }}
                 </div>
                 <br>
-                <div style="border: solid black 1px; padding: 15px">
+                <div class="article">
                     {{ n['article'] }}
                 </div>
                 <br>

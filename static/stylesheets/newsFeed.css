@@ -1,0 +1,12 @@
+.newsContainer {
+    margin: 100px
+}
+
+.newsTitle {
+    font-size: 70px
+}
+
+.article {
+    border: solid black 1px;
+    padding: 15px
+}
