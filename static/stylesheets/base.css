@@ -1,0 +1,50 @@
+body {margin:0;}
+
+.topBanner {
+    height: 25px;
+}
+
+.bannerTitle{
+    padding-left: 20px;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #4CAF50;
+
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    width: 16.65%;
+}
+
+.topnav a:hover {
+    background-color: #C8E6C9;
+    color: white;
+    text-decoration: none;
+}
+
+.topnav a.active {
+    background-color: white;
+    color: white;
+    text-decoration: none;
+}
+
+.searchBar {
+    width: 450% !important;
+}
+
+.searchIcon {
+    margin-left: 700px;
+}
+
+.username {
+    float: right !important;
+}

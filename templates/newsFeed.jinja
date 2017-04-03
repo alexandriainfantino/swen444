@@ -1,0 +1,25 @@
+{% extends "base.jinja" %}
+
+{% block body %}
+
+    <div style="margin: 100px">
+        <div style="font-size: 70px">
+            News
+        </div>
+        <div>
+            {% for n in news %}
+                <div>
+                    {{ n['title'] }} - {{ n['date'] }}
+                </div>
+                <br>
+                <div style="border: solid black 1px; padding: 15px">
+                    {{ n['article'] }}
+                </div>
+                <br>
+                <br>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
