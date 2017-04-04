@@ -1,0 +1,15 @@
+{% extends "base.jinja" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/charityAdmin.css') }}" />
+{% endblock %}
+
+{% block sidebar %}
+    <div class="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li><a href="#">welcome</a></li>
+            <li><a href="#">timeline</a></li>
+            <li><a href="#">new post</a></li>
+            <li><a href="#">statistics</a></li>
+        </ul>
+    </div>
+{% endblock %}
