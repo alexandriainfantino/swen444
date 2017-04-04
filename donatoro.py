@@ -12,6 +12,9 @@ def news_feed():
 def log_in():
     return render_template('logIn.jinja')
 
+@app.route('/selection')
+def selection():
+    return render_template('selection.jinja')
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
