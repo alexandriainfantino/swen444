@@ -20,6 +20,10 @@ def selection():
 def charityRegistrationOne():
     return render_template('registration/charityRegistration/registrationPage1.jinja')
 
+@app.route('/charityRegistration2')
+def charityRegistration2():
+    return render_template('registration/charityRegistration/registrationPage2.jinja')
+
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run()
