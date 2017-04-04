@@ -162,6 +162,10 @@ def donate(charity):
     charityName = {'name':charity}
     return render_template('donation/donation.jinja', username="Johnny Bravo", charity=charityName, creditCard=creditCard, states=states)
 
+@app.route('/charity/admin')
+def charoty_admin_welcome():
+    return render_template('charityAdminWecome.jinja')
+
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run()
