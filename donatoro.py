@@ -14,7 +14,11 @@ def log_in():
 
 @app.route('/selection')
 def selection():
-    return render_template('selection.jinja')
+    return render_template('registration/selection.jinja')
+
+@app.route('/charityRegistration1')
+def charityRegistrationOne():
+    return render_template('registration/charityRegistration/registrationPage1.jinja')
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True

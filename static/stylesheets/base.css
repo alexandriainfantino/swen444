@@ -48,3 +48,49 @@ body {margin:0;}
 .username {
     float: right !important;
 }
+
+.btn-grey {
+  color: #ffffff;
+  background-color: #E0E0E0;
+  border-color: #E0E0E5;
+}
+
+.btn-grey:hover,
+.btn-grey:focus,
+.btn-grey:active,
+.btn-grey.active,
+.open .dropdown-toggle.btn-grey {
+  color: #ffffff;
+  background-color: #E0E0E9;
+  border-color: #E0E0E5;
+}
+
+.btn-grey:active,
+.btn-grey.active,
+.open .dropdown-toggle.btn-grey {
+  background-image: none;
+}
+
+.btn-grey.disabled,
+.btn-grey[disabled],
+fieldset[disabled] .btn-grey,
+.btn-grey.disabled:hover,
+.btn-grey[disabled]:hover,
+fieldset[disabled] .btn-grey:hover,
+.btn-grey.disabled:focus,
+.btn-grey[disabled]:focus,
+fieldset[disabled] .btn-grey:focus,
+.btn-grey.disabled:active,
+.btn-grey[disabled]:active,
+fieldset[disabled] .btn-grey:active,
+.btn-grey.disabled.active,
+.btn-grey[disabled].active,
+fieldset[disabled] .btn-grey.active {
+  background-color: #E0E0E0;
+  border-color: #E0E0E5;
+}
+
+.btn-grey .badge {
+  color: #E0E0E0;
+  background-color: #ffffff;
+}
