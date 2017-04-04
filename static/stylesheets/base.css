@@ -94,3 +94,19 @@ fieldset[disabled] .btn-grey.active {
   color: #E0E0E0;
   background-color: #ffffff;
 }
+
+.btn-purple {
+  color: #FFFFFF;
+  background-color: #673AB7;
+  border-color: #130269;
+}
+
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active,
+.btn-purple.active,
+.open .dropdown-toggle.btn-purple {
+  color: #FFFFFF;
+  background-color: #49247A;
+  border-color: #130269;
+}
