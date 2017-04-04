@@ -12,4 +12,11 @@ Install Flask (may need to run with `sudo`)
 pip install Flask
 ```
 
+## python version 2.7
+
+## To run
+```
+python donatoro.py
+```
+
 ## [Official Flask Documentation](http://flask.pocoo.org)
