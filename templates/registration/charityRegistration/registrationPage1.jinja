@@ -1,0 +1,34 @@
+{% extends "base.jinja" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/registration.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="formContainer">
+    <div class="form-group">
+        <br>
+        <label for="">Login Info</label>
+        <input type="email" class="form-control" id="emailInput" placeholder="Charity Email">
+        <br>
+        <input type="password" class="form-control leftBox" id="password" placeholder="Password">
+        <input type="password" class="form-control rightBox" id="confirmPassword" placeholder="Confirm Password">
+        <br>
+        <br>
+        <br>
+        <label for="">Public Information</label>
+        <br>
+        <input type="text" class="form-control leftBox" id="charityName" placeholder="Charity Name">
+        <input type="text" class="form-control rightBox" id="501c" placeholder="IRS 501c">
+        <br>
+        <br>
+        <br>
+        <input type="text" class="form-control" id="tags" placeholder="Charity Tags">
+        <br>
+        <input type="text" class="form-control descriptionBox" id="description" placeholder="Charity Description">
+        <br>
+        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
+        <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
+    </div>
+</div>
+{% endblock %}

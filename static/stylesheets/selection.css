@@ -1,0 +1,30 @@
+#selectionContainer {
+    width: 400px;
+    height: 310px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 10%;
+}
+
+.selectionBoxes {
+    background-color: #673AB7;
+    width: 45%;
+    height: 300px;
+    color:white;
+    font-size: 25px;
+    padding-top:20%;
+    text-decoration: underline;
+    border-radius: 5px;
+}
+
+.selectionTitle {
+    font-size: 30px;
+}
+
+.donorBox {
+    float: left;
+}
+
+.charityBox {
+    float: right;
+}
