@@ -1,0 +1,32 @@
+{% extends "base.jinja" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/registration.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="formContainer">
+    <div class="form-group">
+        <br>
+        <label for="">Is this information correct?</label>
+        <br>
+        <input type="text" class="form-control leftBox" id="charityName" value="Charity Name: {{ charityInfo['name'] }}" readonly>
+        <input type="text" class="form-control rightBox" id="501c" value="IRS 501c: {{ charityInfo['501c'] }}" readonly>
+        <br>
+        <br>
+        <br>
+        <input type="text" class="form-control" id="tags" value="Charity Tags: {{ charityInfo['tags'] }}" readonly>
+        <br>
+        <input type="text" class="form-control" id="email" value="Charity Email: {{ charityInfo['email'] }}" readonly>
+        <br>
+        <input type="text" class="form-control" id="tags" value="Charity Tags: {{ charityInfo['tags'] }}" readonly>
+        <br>
+        <input type="text" class="form-control" id="address" value="Billing Information: {{ charityInfo['billing'] }}" readonly>
+        <br>
+        <textarea class="form-control" id="description" rows="6" readonly>Charity Description: {{ charityInfo['description'] }}</textarea>
+        <br>
+        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
+        <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.jinja" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/selection.css') }}" />
+{% endblock %}
+{% block body %}
+<div id="selectionContainer">
+    <div class="selectionTitle">
+        I am a
+    </div>
+    <div>
+        <div class="selectionBoxes donorBox">
+            Donor
+        </div>
+        <div class="selectionBoxes charityBox">
+            Charity Representative
+        </div>
+    </div>
+</div>
+{% endblock %}

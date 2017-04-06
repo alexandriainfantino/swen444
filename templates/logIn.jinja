@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/logIn.css') }}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/font-awesome.min.css') }}" />
+</head>
+<body style="background-color: #4CAF50">
+    <div>
+        <div id="loginContainer">
+            <div>
+                <b>Welcome!</b>
+            </div>
+            <div>
+                <div class="form-group centerContent">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon loginIcons"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="email" id="email"  placeholder="Email"/>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon loginIcons"><i class="fa fa-asterisk" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="email" id="email"  placeholder="Password"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="centerContent">
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">Remember me</label>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success accountButtons">Log In</button>
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-purple accountButtons">+ New Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
