@@ -1,0 +1,73 @@
+#loginContainer {
+    position: absolute;
+    width: 300px;
+    height: 310px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+    background: white;
+    border-radius: 5px;
+    padding: 30px;
+    padding-top: 50px;
+    border: solid black 1px;
+}
+
+.centerContent {
+    text-align: center;
+}
+
+.accountButtons{
+    width: 100%;
+}
+
+.loginIcons {
+    background-color: white !important;
+    color: grey !important;
+}
+
+.btn-purple {
+  color: #FFFFFF;
+  background-color: #673AB7;
+  border-color: #130269;
+}
+
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active,
+.btn-purple.active,
+.open .dropdown-toggle.btn-purple {
+  color: #FFFFFF;
+  background-color: #49247A;
+  border-color: #130269;
+}
+
+.btn-purple:active,
+.btn-purple.active,
+.open .dropdown-toggle.btn-purple {
+  background-image: none;
+}
+
+.btn-purple.disabled,
+.btn-purple[disabled],
+fieldset[disabled] .btn-purple,
+.btn-purple.disabled:hover,
+.btn-purple[disabled]:hover,
+fieldset[disabled] .btn-purple:hover,
+.btn-purple.disabled:focus,
+.btn-purple[disabled]:focus,
+fieldset[disabled] .btn-purple:focus,
+.btn-purple.disabled:active,
+.btn-purple[disabled]:active,
+fieldset[disabled] .btn-purple:active,
+.btn-purple.disabled.active,
+.btn-purple[disabled].active,
+fieldset[disabled] .btn-purple.active {
+  background-color: #673AB7;
+  border-color: #130269;
+}
+
+.btn-purple .badge {
+  color: #673AB7;
+  background-color: #FFFFFF;
+}

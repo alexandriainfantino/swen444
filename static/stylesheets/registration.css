@@ -1,0 +1,21 @@
+.formContainer {
+    width: 550px;
+    height: 310px;
+    margin: 0 auto;
+}
+
+.leftBox {
+    float: left;
+    width: 45%;
+}
+
+.rightBox {
+    float: right;
+    width: 45%;
+}
+
+.formButtons {
+    width: 30%;
+    height: 20%;
+}
+

@@ -1,0 +1,59 @@
+{% extends "base.jinja" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/registration.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="formContainer">
+    <div class="form-group">
+        <br>
+        <label for="">Billing Information<br>(optional)</label>
+        <button class="btn btn-purple rightBox" style="width: 50px">Skip</button>
+        <br>
+        <br>
+        <input type="text" class="form-control" id="ccNum" placeholder="Credit Card Number">
+        <br>
+        <div class='row'>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="ccv" size="30" type="text" placeholder="CCV"/>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="expMonth" size="30" type="number" placeholder="Exp. Month"/>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="Exp. Year" size="30" type="number" placeholder="Exp. Year"/>
+                </div>
+            </div>
+        </div>
+        <input type="text" class="form-control" id="streetAddress1" placeholder="Billing Street Line 1">
+        <br>
+        <input type="text" class="form-control" id="streetAddress2" placeholder="Billing Street Line 2">
+        <br>
+        <div class='row'>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="city" size="30" type="text" placeholder="City"/>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="state" size="30" type="number" placeholder="State"/>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="zip" size="30" type="number" placeholder="Zip Code"/>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
+        <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
+    </div>
+</div>
+{% endblock %}
