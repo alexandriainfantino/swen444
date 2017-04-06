@@ -1,15 +1,15 @@
 {% extends "base.jinja" %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/charityAdmin.css') }}" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 {% endblock %}
 
 {% block sidebar %}
-    <div class="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li><a href="#">welcome</a></li>
-            <li><a href="#">timeline</a></li>
-            <li><a href="#">new post</a></li>
-            <li><a href="#">statistics</a></li>
-        </ul>
-    </div>
+   <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+       <a href="#" class="w3-bar-item w3-button">Welcome</a>
+       <a href="#" class="w3-bar-item w3-button">Timeline</a>
+       <a href="#" class="w3-bar-item w3-button">New post</a>
+       <a href="#" class="w3-bar-item w3-button">Statistics</a>
+   </div>
 {% endblock %}
+
