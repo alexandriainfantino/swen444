@@ -1,0 +1,48 @@
+{% extends "base.jinja" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/donorProfile.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="formContainer">
+    <div class="form-group">
+        <br>
+        <label class="profileTitle">Profile - Personal Info</label>
+        <br>
+        <input type="email" class="form-control" id="emailInput" placeholder="Email" value="{{email}}"/>
+        <br>
+        <input type="text" class="form-control leftBox" id="firstName" placeholder="First Name" value="{{first_name}}"/>
+        <input type="text" class="form-control rightBox" id="lastName" placeholder="Last Name" value="{{last_name}}"/>
+        <br>
+        <br>
+        <br>
+        <input type="text" class="form-control" id="streetAddress1" placeholder="Street Address Line 1" value="{{address}}"/>
+        <br>
+        <input type="text" class="form-control descriptionBox" id="streetAddress2" placeholder="Street Address Line 2" value="{{address2}}"/>
+        <br>
+        <div class='row'>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="city" size="30" type="text" placeholder="City" value="{{city}}"/>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="state" size="30" type="text" placeholder="State" value="{{state}}"/>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" id="zip" size="30" type="number" placeholder="Zip Codes" value="{{zipcode}}"/>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
+        <button class="btn btn-success rightBox saveButtons"><b>Save Changes</b></button>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+{% endblock %}

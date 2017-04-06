@@ -1,0 +1,44 @@
+.profileContainer {
+    margin: 100px
+}
+
+.profileTitle {
+    font-size: 53px
+}
+
+#info {
+	font-size: 20px
+}
+
+.formContainer {
+    width: 550px;
+    height: 310px;
+    margin: 0 auto;
+}
+
+.leftBox {
+    float: left;
+    width: 45%;
+}
+
+.rightBox {
+    float: right;
+    width: 45%;
+}
+
+.formButtons {
+    width: 30%;
+    height: 20%;
+}
+
+.saveButtons {
+	width: 40%;
+    height: 30%;
+}
+
+.secondaryButtons{
+	background-color: #673AB7;
+	color: white;
+	width: 30%;
+    height: 20%;
+}

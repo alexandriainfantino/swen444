@@ -1,0 +1,44 @@
+{% extends "base.jinja" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/donorProfile.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+    <div class="profileContainer">
+        <div class="profileTitle">
+            Profile
+        </div>
+        <div class="row" type="info">
+            <div class="col-sm-1"><b>Name:</b></div>
+            <div class="col-sm-2">{{username}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"><b>Email:</b></div>
+            <div class="col-sm-2">{{email}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"><b>Address:</b></div>
+            <div class="col-sm-2">{{address}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"><b>City:</b></div>
+            <div class="col-sm-1">{{city}}</div>
+            <div class="col-md-1"><b>State:</b></div>
+            <div class="col-sm-1">{{state}}</div>
+            <div class="col-md-1"><b>zipcode:</b></div>
+            <div class="col-sm-1">{{zipcode}}</div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <button class="btn btn-success rightBox formButtons">Edit Personal Info</button>
+            <div class="col-sm-1"></div>           
+            <button class="btn btn-success rightBox formButtons">Edit Payment Info</button>
+            <div class="col-sm-1"></div>           
+            <button class="btn btn-success rightBox formButtons">Edit Password</button>
+        </div>
+        
+    </div>
+
+{% endblock %}
