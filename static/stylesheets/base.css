@@ -38,15 +38,17 @@ body {margin:0;}
 }
 
 .searchBar {
-    width: 450% !important;
+    width: 100% !important;
 }
 
 .searchIcon {
-    margin-left: 700px;
+    margin-left: 100%;
 }
 
-.username {
-    float: right !important;
+@media screen and (min-width: 800px) {
+    .username {
+        float: right !important;
+    }
 }
 
 .btn-grey {
