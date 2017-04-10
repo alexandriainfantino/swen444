@@ -13,14 +13,7 @@
         <br>
         <input type="email" class="form-control" id="emailInput" placeholder="Email" value="{{email}}"/>
         <br>
-        <input type="text" class="form-control leftBox" id="firstName" placeholder="First Name" value="{{first_name}}"/>
-        <input type="text" class="form-control rightBox" id="lastName" placeholder="Last Name" value="{{last_name}}"/>
-        <br>
-        <br>
-        <br>
         <input type="text" class="form-control" id="streetAddress1" placeholder="Street Address Line 1" value="{{address}}"/>
-        <br>
-        <input type="text" class="form-control descriptionBox" id="streetAddress2" placeholder="Street Address Line 2" value="{{address2}}"/>
         <br>
         <div class='row'>
             <div class='col-sm-4'>
@@ -31,7 +24,7 @@
             <div class='col-sm-4'>
                 <div class='form-group'>
                     <select class="form-control" id="state">
-                        {% for n in states %}
+                       {% for n in states %}
                             {% if n == state %}
                                 <option selected>{{n}}</option>
                             {% else %}                            
@@ -47,6 +40,8 @@
                 </div>
             </div>
         </div>
+        <input type="text" class="form-control" id="county" placeholder="Country" value="{{country}}">
+        <br>
         <button class="btn btn-grey leftBox formButtons" formaction="../profile"><b>Back</b></button>
         <button class="btn btn-success rightBox saveButtons"><b>Save Changes</b></button>
         </form>
