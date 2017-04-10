@@ -1,19 +1,35 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 
 app = Flask(__name__)
 
 @app.route('/newsFeed')
 def news_feed():
     fakeNews = [{"title": "Fake News Title", "date": "01/01/2017", "article" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dui lorem, porta sit amet tellus non, semper blandit augue. Vivamus vitae ligula quis neque venenatis blandit eget nec sapien. Duis sodales orci in est feugiat lobortis. Integer non purus sem. Vestibulum eu fermentum tellus, eu vulputate leo. Aliquam vitae est nec diam ornare efficitur. Aenean congue fermentum justo, aliquam porta velit consequat nec. Duis ac tortor metus.."}, {"title":"Fake news article 2", "date":"02/03/2017", "article": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dui lorem, porta sit amet tellus non, semper blandit augue. Vivamus vitae ligula quis neque venenatis blandit eget nec sapien. Duis sodales orci in est feugiat lobortis. Integer non purus sem. Vestibulum eu fermentum tellus, eu vulputate leo. Aliquam vitae est nec diam ornare efficitur. Aenean congue fermentum justo, aliquam porta velit consequat nec. Duis ac tortor metus.."}]
-    return render_template('newsFeed.jinja', username="Fake Name", news = fakeNews)
+    return render_template('newsFeed.jinja', username="Johnny Bravo", news = fakeNews)
 
-@app.route('/profile')
-def donor_profile():
-	return render_template('DonorProfile/donorProfile.jinja', username="Johnny Bravo", email="Johnny.Bravo@gmail.com", address="123 Rainbow Drive", address2="", city="Rochester", state="New York", zipcode="14623")
+@app.route('/profile', methods = ['GET', 'POST'])
+def profile():
+    user = "donor"
+    if user == "donor":
+        return render_template('DonorProfile/donorProfile.jinja', username="Johnny Bravo", email="Johnny.Bravo@gmail.com", address="123 Rainbow Drive", address2="", city="Rochester", state="New York", zipcode="14623")
+    else:
+        return render_template('CharityProfile/charityProfile.jinja', username="Johnny Bravo", email="Johnny.Bravo@gmail.com", address="123 Rainbow Drive", address2="", city="Rochester", state="New York", zipcode="14623")
 
 @app.route('/personal')
 def donor_edit_personal():
 	return render_template('DonorProfile/donorPersonal.jinja', username="Johnny Bravo", first_name="Johnny", last_name="Bravo", email="Johnny.Bravo@gmail.com", address="123 Rainbow Drive", address2="", city="Rochester", state="New York", zipcode="14623")
+
+@app.route('/savePersonal', methods = ['POST'])
+def save_personal():    
+    return redirect('../profile')
+
+@app.route('/savePassword', methods = ['POST'])
+def save_password():
+    return redirect('../profile')
+
+@app.route('/savePayment', methods = ['POST'])
+def save_payment():
+    return redirect('../payment')
 
 @app.route('/password')
 def donor_edit_password():

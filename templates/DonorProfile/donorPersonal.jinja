@@ -8,7 +8,8 @@
 <div class="formContainer">
     <div class="form-group">
         <br>
-        <label class="profileTitle">Profile - Personal Info</label>
+        <label class="profileTitle">Profile - Personal Info</label>        
+        <form action="../savePersonal" method="post">
         <br>
         <input type="email" class="form-control" id="emailInput" placeholder="Email" value="{{email}}"/>
         <br>
@@ -38,8 +39,9 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
+        <button class="btn btn-grey leftBox formButtons" formaction="../profile"><b>Back</b></button>
         <button class="btn btn-success rightBox saveButtons"><b>Save Changes</b></button>
+        </form>
         <br>
         <br>
         <br>
