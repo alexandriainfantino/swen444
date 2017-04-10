@@ -14,6 +14,7 @@
     width: 550px;
     height: 310px;
     margin: 0 auto;
+    z-index: 1;
 }
 
 .leftBox {
@@ -34,11 +35,4 @@
 .saveButtons {
 	width: 40%;
     height: 30%;
-}
-
-.secondaryButtons{
-	background-color: #673AB7;
-	color: white;
-	width: 30%;
-    height: 20%;
 }

@@ -22,10 +22,18 @@
                 </div>
                 <button type="submit" class="btn btn-default searchIcon"><span class="glyphicon glyphicon-search"></span></button>
             </form>
-            <a href="" class="username">
+            <div class="dropdown username">
+                <button class="dropdown-toggle username" type="button" data-toggle="dropdown">{{username}}
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">My Profile</a></li>
+                    <li><a href="#">Sign Out</a></li>
+                </ul>
+            </div>
+            <!--<a href="" class="username">
                 {{ username }}
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
-            </a>
+            </a>-->
         {% endif %}
     </div>
 
