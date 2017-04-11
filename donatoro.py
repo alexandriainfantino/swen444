@@ -37,6 +37,11 @@ def donorRegistration():
 def donorBilling():
     return render_template('registration/donorRegistration/donorBilling.jinja')
 
+@app.route('/donationConfirmation')
+def donationConfirmation():
+    donation={'amount':100,'charity':'Electronic Frontier Foundation'}
+    return render_template('donation/confirm.jinja', donation = donation)
+
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run()
