@@ -40,7 +40,15 @@
                 </div>
             </div>
         </div>
-        <input type="text" class="form-control" id="county" placeholder="Country" value="{{country}}">
+        <select class="form-control" id="country">
+           {% for n in countries %}
+                {% if n == country %}
+                    <option selected>{{n}}</option>
+                {% else %}                            
+                    <option>{{n}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
         <br>
         <button class="btn btn-grey leftBox formButtons" formaction="../profile"><b>Back</b></button>
         <button class="btn btn-success rightBox saveButtons"><b>Save Changes</b></button>
