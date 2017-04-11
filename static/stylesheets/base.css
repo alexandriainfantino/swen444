@@ -19,10 +19,8 @@ body {margin:0;}
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
-    width: 16.65%;
 }
 
 .topnav a:hover {
@@ -37,18 +35,21 @@ body {margin:0;}
     text-decoration: none;
 }
 
+.logo {
+    height: 50px;
+}
+
 .searchBar {
-    width: 100% !important;
+    width: 450% !important;
 }
 
 .searchIcon {
-    margin-left: 100%;
+    margin-left: 700px;
 }
 
-@media screen and (min-width: 800px) {
-    .username {
-        float: right !important;
-    }
+.topnav .username {
+    float: right;
+    padding: 14px 16px;
 }
 
 .btn-grey {
