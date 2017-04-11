@@ -34,3 +34,11 @@ hr {
     border-top: 2px solid #aaaaaa;
     border-bottom: 1px solid #ffffff;
 }
+
+.right{
+    float:right;
+}
+
+.left{
+    float:left;
+}
