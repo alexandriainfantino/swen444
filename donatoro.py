@@ -164,7 +164,7 @@ def donate(charity):
 
 @app.route('/charity/admin')
 def charoty_admin_welcome():
-    return render_template('charityAdminWecome.jinja')
+    return render_template('charity/charityAdminWelcome.jinja')
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
