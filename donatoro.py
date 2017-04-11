@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 
 app = Flask(__name__)
 
@@ -28,6 +28,7 @@ def edit_personal():
   
 @app.route('/savePersonal', methods = ['POST'])
 def save_personal():    
+    print(request.form["country"])#This is how you get data
     return redirect('../profile')
 
 @app.route('/savePassword', methods = ['POST'])

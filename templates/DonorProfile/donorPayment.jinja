@@ -24,38 +24,38 @@
         <label for="">Add New Credit Card</label>        
         <form action="../savePayment" method="post">
         <br>
-        <input type="text" class="form-control" id="ccNum" placeholder="Credit Card Number">
+        <input type="text" class="form-control" name="ccNum" placeholder="Credit Card Number">
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="ccv" size="30" type="text" placeholder="CCV"/>
+                    <input class="form-control" name="ccv" size="30" type="text" placeholder="CCV"/>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="expMonth" size="30" type="number" placeholder="Exp. Month"/>
+                    <input class="form-control" name="expMonth" size="30" type="number" placeholder="Exp. Month"/>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="Exp. Year" size="30" type="number" placeholder="Exp. Year"/>
+                    <input class="form-control" name="Exp. Year" size="30" type="number" placeholder="Exp. Year"/>
                 </div>
             </div>
         </div>
-        <input type="text" class="form-control" id="streetAddress1" placeholder="Billing Street Line 1">
+        <input type="text" class="form-control" name="streetAddress1" placeholder="Billing Street Line 1">
         <br>
-        <input type="text" class="form-control" id="streetAddress2" placeholder="Billing Street Line 2">
+        <input type="text" class="form-control" name="streetAddress2" placeholder="Billing Street Line 2">
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="city" size="30" type="text" placeholder="City"/>
+                    <input class="form-control" name="city" size="30" type="text" placeholder="City"/>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <select class="form-control" id="state">
+                    <select class="form-control" name="state">
                         <option value="" disabled selected>State</option>
                         <option value="Alabama">Alabama</option>
                         <option value="Alaska">Alaska</option>
@@ -65,7 +65,7 @@
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="zip" size="30" type="number" placeholder="Zip Code"/>
+                    <input class="form-control" name="zip" size="30" type="number" placeholder="Zip Code"/>
                 </div>
             </div>
         </div>
