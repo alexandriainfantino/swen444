@@ -6,12 +6,23 @@
 
 {% block body %}
 
+    <script>
+        function hideMessage() {
+            var x = document.getElementById('message');
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+    </script>
+
 <div class="profileContainer">
   
     {% if message != "" %}
-        <div class="message">
+        <div class="message" id="message">
             {{message}}
-            <button class="btn btn-purple messageButtons"><b>Dismiss</b></button>
+            <button class="btn btn-purple messageButtons" onclick="hideMessage()"><b>Dismiss</b></button>
         </div>
     {% endif %}
 
