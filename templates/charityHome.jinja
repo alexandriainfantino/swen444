@@ -7,6 +7,14 @@
 {% block body %}
 
 <div class="profileContainer">
+  
+    {% if message != "" %}
+        <div class="message">
+            {{message}}
+            <button class="btn btn-purple messageButtons"><b>Dismiss</b></button>
+        </div>
+    {% endif %}
+
     <div class="profileTitle">
         {{charityName}}
     </div>
