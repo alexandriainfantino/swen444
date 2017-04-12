@@ -1,0 +1,38 @@
+{% extends "base.jinja" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/profile.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+<div class="profileContainer">
+    <div class="profileTitle">
+        {{charityName}}
+    </div>
+    <div class="info">
+        {{info}}
+    </div>
+    <br>
+    <label>Images</label> 
+    <br>
+    <table style="width:100%">
+        <tr>
+            {% for n in pics %}        
+                <td><img src="{{ url_for('static', filename=n) }}" class="picture"/></td>
+            {% endfor %}
+            <td>
+                <button class="btn btn-success homeButtons" onClick="location.href='../donate'" ><b>Donate</b></button>
+                <br>
+                <br>                
+                <form action="../follow" method="post">
+                <button class="btn btn-purple homeButtons"><b>Follow</b></button>
+                </form>
+            </td>
+        </div>
+        </tr>
+    </table>
+</div>
+
+
+{% endblock %}

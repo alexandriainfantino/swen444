@@ -1,5 +1,6 @@
 .profileContainer {
     margin-left: 18%;
+    margin-right: 18%;
     font-size: 25px
 }
 
@@ -40,4 +41,32 @@
 .saveButtons {
 	width: 40%;
     height: 30%;
+}
+
+
+
+
+.info {
+    padding: 15px;
+    border: solid black 1px;
+    font-size: 15px
+}
+
+.picture {
+    display: inline-block;
+    border: solid black 1px;
+    width: 150px;
+    height: 200px;
+}
+
+.homeBox {
+    text-align: center;
+    vertical-align: center;
+    display: inline-block;
+    width: 150px;
+    height: 200px; 
+}
+
+.homeButtons {
+    width: 100%;
 }
