@@ -17,9 +17,10 @@
         <a href="/"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
         {% if username != null %}
             <form class="navbar-form navbar-left" role="search">
-                <div class="form-group" style="width: 300%;">
+                <div class="form-group">
                     <input type="text" class="form-control searchBar" placeholder="Search Charities...">
                 </div>
+                <button type="submit" class="btn btn-default searchIcon"><span class="glyphicon glyphicon-search"></span></button>
             </form>
             <a href="" class="username">
                 {{ username }}

@@ -41,8 +41,6 @@ def donorRegistration():
 def donorBilling():
     return render_template('registration/donorRegistration/donorBilling.jinja')
 
-
-
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run()
