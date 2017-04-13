@@ -8,7 +8,7 @@ countries=["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola"
 
 @app.route('/profile', methods = ['GET', 'POST'])
 def profile():
-    user = "charity"
+    user = "donor"
     if user == "donor":
         return render_template('DonorProfile/donorProfile.jinja', username="Johnny Bravo", email="Johnny.Bravo@gmail.com", address="123 Rainbow Drive", address2="Apartment 1216B", city="Rochester", state="New York", zipcode="14623")
     else:
@@ -16,7 +16,7 @@ def profile():
 
 @app.route('/personal')
 def edit_personal():
-    user = "charity"
+    user = "donor"
     if user == "donor":
         return render_template('DonorProfile/donorPersonal.jinja', username="Johnny Bravo", first_name="Johnny", last_name="Bravo", email="Johnny.Bravo@gmail.com", address="123 Rainbow Drive", address2="", city="Rochester", state="New York", zipcode="14623", states=states)
     else:
@@ -44,6 +44,13 @@ def edit_password():
 def donor_edit_payment():
 	fakeCards = ["5678","6666"]
 	return render_template('DonorProfile/donorPayment.jinja', username="Johnny Bravo", cards=fakeCards)
+
+@app.route('/charityHome')
+def charity_home():
+    info="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dui lorem, porta sit amet tellus non, semper blandit augue. Vivamus vitae ligula quis neque venenatis blandit eget nec sapien. Duis sodales orci in est feugiat lobortis. Integer non purus sem. Vestibulum eu fermentum tellus, eu vulputate leo. Aliquam vitae est nec diam ornare efficitur. Aenean congue fermentum justo, aliquam porta velit consequat nec. Duis ac tortor metus.."
+    pics=['tree1.jpg','tree2.jpg','tree3.jpg','tree4.jpg']
+    message="Thank you for your donation!"
+    return render_template('charityHome.jinja', username="Johnny Bravo", charityName="I LUV TREES", info=info, pics=pics, message=message)
 
 @app.route('/newsFeed')
 def news_feed():
