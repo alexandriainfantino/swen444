@@ -1,0 +1,31 @@
+{% extends "base.jinja" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/donation.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="formContainer">
+    <div class="form-group">
+        <br>
+        <label for="">Donation Confirmation</label>
+        <br>
+        <hr>
+        <br>
+        <b>Charity Name:</b>
+        {{ donation['charity'] }}
+        <br>
+        <br>
+        <b>Card Ending in:</b>
+        {{ donation['card'] }}
+        <br>
+        <br>
+        <b>Amount:</b>
+        ${{ donation['amount'] }}
+        <br>
+        <br>
+        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
+        <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
+    </div>
+</div>
+{% endblock %}
