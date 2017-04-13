@@ -11,6 +11,9 @@ body {margin:0;}
 .topnav {
     overflow: hidden;
     background-color: #4CAF50;
+    padding-bottom: 100px;
+    margin-bottom: -100px;
+    background-clip: content-box; 
 
 }
 
@@ -21,6 +24,8 @@ body {margin:0;}
     text-align: center;
     text-decoration: none;
     font-size: 17px;
+    width: 16.65%;
+    position:relative;
 }
 
 .topnav a:hover {
@@ -49,8 +54,14 @@ body {margin:0;}
 
 .topnav .username {
     float: right;
-    padding: 14px 16px;
+    background-color: Transparent;
+    border: none;    
+    color: white;
+    text-align: center;    
+    padding: 10px 8px;
+    font-size: 17px;
 }
+
 
 .btn-grey {
   color: #ffffff;

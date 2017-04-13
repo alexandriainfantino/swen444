@@ -1,0 +1,58 @@
+{% extends "base.jinja" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/profile.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="formContainer">
+    <div class="form-group">
+        <br>
+        <label class="profileTitle">Profile - Personal Info</label>        
+        <form action="../savePersonal" method="post">
+        <br>
+        <input type="email" class="form-control" name="emailInput" placeholder="Email" value="{{email}}"/>
+        <br>
+        <input type="text" class="form-control leftBox" name="firstName" placeholder="First Name" value="{{first_name}}"/>
+        <input type="text" class="form-control rightBox" name="lastName" placeholder="Last Name" value="{{last_name}}"/>
+        <br>
+        <br>
+        <br>
+        <input type="text" class="form-control" name="streetAddress1" placeholder="Street Address Line 1" value="{{address}}"/>
+        <br>
+        <input type="text" class="form-control descriptionBox" name="streetAddress2" placeholder="Street Address Line 2" value="{{address2}}"/>
+        <br>
+        <div class='row'>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" name="city" size="30" type="text" placeholder="City" value="{{city}}"/>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <select class="form-control" name="state">
+                        {% for n in states %}
+                            {% if n == state %}
+                                <option selected>{{n}}</option>
+                            {% else %}                            
+                                <option>{{n}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <input class="form-control" name="zip" size="30" type="number" placeholder="Zip Codes" value="{{zipcode}}"/>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-grey leftBox formButtons" formaction="../profile"><b>Back</b></button>
+        <button class="btn btn-success rightBox saveButtons"><b>Save Changes</b></button>
+        </form>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+{% endblock %}

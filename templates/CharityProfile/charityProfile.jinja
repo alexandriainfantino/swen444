@@ -1,0 +1,37 @@
+{% extends "base.jinja" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/profile.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+    <div class="profileContainer">
+        <div class="profileTitle">
+            Profile
+        </div>
+        <b>Name:</b>
+        {{username}}
+        <br>
+        <b>Email:</b>
+        {{email}}
+        <br>
+        <b>Address:</b>
+        {{address}}
+        <br>
+        <b>City:</b>
+        {{city}}
+        <b>State:</b>
+        {{state}}
+        <b>Zipcode:</b>
+        {{zipcode}}
+        <br>
+        <b>Country:</b>
+        {{country}}
+        <br>
+        <br>
+        <button class="btn btn-success profileButtons" onClick="location.href='../personal'" >Edit Personal Info</button>
+        <button class="btn btn-success profileButtons" onClick="location.href='../password'">Edit Password</button>
+        
+    </div>
+
+{% endblock %}
