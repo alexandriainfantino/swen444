@@ -100,6 +100,10 @@ def donate():
     charity = {'name':'Electronic Frontier Foundation'}
     return render_template('donation/donation.jinja', charity=charity, creditCard=creditCard)
 
+@app.route('/results')
+def results():
+    return render_template('searchResults.jinja')
+
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run()
