@@ -39,7 +39,7 @@ def donorBilling():
 
 @app.route('/donationConfirmation')
 def donationConfirmation():
-    donation={'amount':100,'charity':'Electronic Frontier Foundation'}
+    donation={'card':1234,'amount':100,'charity':'Electronic Frontier Foundation'}
     return render_template('donation/confirm.jinja', donation = donation)
 
 @app.route('/donate')
