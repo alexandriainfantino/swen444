@@ -22,7 +22,6 @@ body {margin:0;}
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
     width: 16.65%;
@@ -41,6 +40,10 @@ body {margin:0;}
     text-decoration: none;
 }
 
+.logo {
+    height: 50px;
+}
+
 .searchBar {
     width: 450% !important;
 }
@@ -49,8 +52,8 @@ body {margin:0;}
     margin-left: 700px;
 }
 
-.username {
-    float: right !important;
+.topnav .username {
+    float: right;
     background-color: Transparent;
     border: none;    
     color: white;
