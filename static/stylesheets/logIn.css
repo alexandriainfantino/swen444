@@ -37,7 +37,7 @@
 .btn-purple:active,
 .btn-purple.active,
 .open .dropdown-toggle.btn-purple {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   background-color: #49247A;
   border-color: #130269;
 }
