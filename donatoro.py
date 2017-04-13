@@ -56,9 +56,10 @@ def charity_home():
 def news_feed():
     charities = getDonorFavorites(1)
     news = []
+    message=""
     for c in charities:
         news.append(getCharityPosts(c['charId']))
-    return render_template('newsFeed.jinja', username="Fake Name", news = news[0])
+    return render_template('newsFeed.jinja', username="Johnny Bravo", news = news[0], message=message)
 
 @app.route('/')
 def log_in():
