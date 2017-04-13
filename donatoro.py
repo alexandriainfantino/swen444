@@ -1,12 +1,16 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, g
+from dataBaseLogic import *
 
 app = Flask(__name__)
-
+app.config.from_object(__name__)
 
 @app.route('/newsFeed')
 def news_feed():
-    fakeNews = [{"title": "Fake News Title", "date": "01/01/2017", "article" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dui lorem, porta sit amet tellus non, semper blandit augue. Vivamus vitae ligula quis neque venenatis blandit eget nec sapien. Duis sodales orci in est feugiat lobortis. Integer non purus sem. Vestibulum eu fermentum tellus, eu vulputate leo. Aliquam vitae est nec diam ornare efficitur. Aenean congue fermentum justo, aliquam porta velit consequat nec. Duis ac tortor metus.."}, {"title":"Fake news article 2", "date":"02/03/2017", "article": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dui lorem, porta sit amet tellus non, semper blandit augue. Vivamus vitae ligula quis neque venenatis blandit eget nec sapien. Duis sodales orci in est feugiat lobortis. Integer non purus sem. Vestibulum eu fermentum tellus, eu vulputate leo. Aliquam vitae est nec diam ornare efficitur. Aenean congue fermentum justo, aliquam porta velit consequat nec. Duis ac tortor metus.."}]
-    return render_template('newsFeed.jinja', username="Fake Name", news = fakeNews)
+    charities = getDonorFavorites(1)
+    news = []
+    for c in charities:
+        news.append(getCharityPosts(c['charId']))
+    return render_template('newsFeed.jinja', username="Fake Name", news = news[0])
 
 @app.route('/')
 def log_in():
