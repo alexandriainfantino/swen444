@@ -24,12 +24,10 @@ body {margin:0;}
     text-align: center;
     text-decoration: none;
     font-size: 17px;
-    width: 16.65%;
     position:relative;
 }
 
 .topnav a:hover {
-    background-color: #C8E6C9;
     color: white;
     text-decoration: none;
 }
@@ -40,16 +38,38 @@ body {margin:0;}
     text-decoration: none;
 }
 
+.topnav #searchForm {
+    margin: 15px 0 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    float: left;
+    box-shadow: none;
+}
+
+.topnav #searchForm input {
+    width: 100%;
+}
+
+.topnav #searchForm > span {
+    display: block;
+    overflow: hidden;
+    padding-right: 10px;
+}
+
+.topnav #searchForm button {
+    float: right;
+}
+
+.topnav #searchDiv {
+    margin-left: 216px;
+    margin-right: 152px;
+}
+
 .logo {
     height: 50px;
-}
-
-.searchBar {
-    width: 450% !important;
-}
-
-.searchIcon {
-    margin-left: 700px;
+    margin-top: 7px;
 }
 
 .topnav .username {
