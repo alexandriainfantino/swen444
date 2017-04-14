@@ -100,13 +100,13 @@ def donorBilling():
 @app.route('/donationConfirmation')
 def donationConfirmation():
     donation={'card':1234,'amount':100,'charity':'Electronic Frontier Foundation'}
-    return render_template('donation/confirm.jinja', donation = donation)
+    return render_template('donation/confirm.jinja', username="Johnny Bravo", donation = donation)
 
 @app.route('/donate/<charity>')
 def donate(charity):
     creditCard = {'last4':1234}
     charityName = {'name':charity}
-    return render_template('donation/donation.jinja', charity=charityName, creditCard=creditCard)
+    return render_template('donation/donation.jinja', username="Johnny Bravo", charity=charityName, creditCard=creditCard)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
