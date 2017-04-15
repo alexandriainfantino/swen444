@@ -109,7 +109,7 @@ def charityRegistrationOne():
 
 @app.route('/charityRegistration2')
 def charityRegistration2():
-    return render_template('registration/charityRegistration/registrationPage2.jinja')
+    return render_template('registration/charityRegistration/registrationPage2.jinja', states=states, countries=countries)
 
 @app.route('/charityConfirmation')
 def charityConfirmation():
@@ -118,11 +118,11 @@ def charityConfirmation():
 
 @app.route('/donorRegistration')
 def donorRegistration():
-    return render_template('registration/donorRegistration/donorRegistration.jinja')
+    return render_template('registration/donorRegistration/donorRegistration.jinja', states=states)
 
 @app.route('/donorBilling')
 def donorBilling():
-    return render_template('registration/donorRegistration/donorBilling.jinja')
+    return render_template('registration/donorRegistration/donorBilling.jinja', states=states)
 
 @app.route('/donationConfirmation')
 def donationConfirmation():
@@ -133,7 +133,7 @@ def donationConfirmation():
 def donate(charity):
     creditCard = {'last4':1234}
     charityName = {'name':charity}
-    return render_template('donation/donation.jinja', username="Johnny Bravo", charity=charityName, creditCard=creditCard)
+    return render_template('donation/donation.jinja', username="Johnny Bravo", charity=charityName, creditCard=creditCard, states=states)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
