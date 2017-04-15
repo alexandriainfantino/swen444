@@ -10,44 +10,71 @@ countries=["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola"
 
 @app.route('/profile', methods = ['GET', 'POST'])
 def profile():
-    user = "donor"
-    if user == "donor":
-        return render_template('DonorProfile/donorProfile.jinja', username="Johnny Bravo", email="Johnny.Bravo@gmail.com", address="123 Rainbow Drive", address2="Apartment 1216B", city="Rochester", state="New York", zipcode="14623")
+    user = getUserById(1)
+    if user["isDonor"] == 1:        
+        info = getDonorInfoByUserId(1)
+        return render_template('DonorProfile/donorProfile.jinja', username=(info["firstName"]+" "+info["lastName"]), email=user["email"], address=info["streetAdd1"], address2=info["streetAdd2"], city=info["city"], state=info["state"], zipcode=info["zip"])
     else:
         return render_template('CharityProfile/charityProfile.jinja', username="Charity Name", email="charity@gmail.com", address="123 Rainbow Drive", city="Rochester", state="New York", zipcode="14623", country="United States")
 
 @app.route('/personal')
 def edit_personal():
-    user = "donor"
-    if user == "donor":
-        return render_template('DonorProfile/donorPersonal.jinja', username="Johnny Bravo", first_name="Johnny", last_name="Bravo", email="Johnny.Bravo@gmail.com", address="123 Rainbow Drive", address2="Apartment 1216B", city="Rochester", state="New York", zipcode="14623", states=states)
+    user = getUserById(1)
+    if user["isDonor"] == 1:        
+        info = getDonorInfoByUserId(1)
+        return render_template('DonorProfile/donorPersonal.jinja', username=(info["firstName"]+" "+info["lastName"]), first_name=info["firstName"], last_name=info["lastName"], email=user["email"], address=info["streetAdd1"], address2=info["streetAdd2"], city=info["city"], state=info["state"], zipcode=info["zip"], states=states)
     else:
         return render_template('CharityProfile/charityPersonal.jinja', username="Charity Name", email="charity@gmail.com", address="123 Rainbow Drive", city="Rochester", state="New York", zipcode="14623", country="United States", states=states, countries=countries)
   
 @app.route('/password')
 def edit_password():
-    user = "Charity Name"
-    return render_template('password.jinja', username=user)
+    user = getUserById(1)
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(1)
+        return render_template('password.jinja', username=(info["firstName"]+" "+info["lastName"]), message="")
+    else:
+        return render_template('password.jinja', username="Charity Name", message="")
 
 @app.route('/payment')
 def donor_edit_payment():
-    fakeCards = ["5678","6666"]
-    return render_template('DonorProfile/donorPayment.jinja', username="Johnny Bravo", cards=fakeCards)
+    user = getUserById(1)
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(1)  
+        cards = []      
+        for card in getCreditCardByUserId(1):
+            cards.append(dict(num=str(card["ccn"])[-4:],id=card["id"]))
+        return render_template('DonorProfile/donorPayment.jinja', username=(info["firstName"]+" "+info["lastName"]), cards=cards, states=states)
 
 
 #FORM ACTIONS  
 @app.route('/savePersonal', methods = ['POST'])
-def save_personal():    
-    print(request.form["country"])#This is how you get data
+def save_personal():   
+    editDonorPersonalInfo("Johnny.Bravo@gmail.com", request.form["emailInput"], request.form["firstName"], request.form["lastName"], request.form["streetAddress1"], request.form["streetAddress2"], request.form["city"], request.form["state"], request.form["zip"]) 
     return redirect('../profile')
 
 @app.route('/savePassword', methods = ['POST'])
 def save_password():
-
-    return redirect('../profile')
+    user = getUserById(1)
+    if request.form["oldpassword"] == user["password"]:
+        editPassword("Johnny.Bravo@gmail.com",request.form["newpassword"])
+        return redirect('../profile')
+    else:
+        if user["isDonor"] == 1:
+            info = getDonorInfoByUserId(1)
+            return render_template('password.jinja', username=(info["firstName"]+" "+info["lastName"]), message="Password Does Not Match Current Password!")
+        else:
+            return render_template('password.jinja', username="Charity Name", message="Password Does Not Match Current Password!")
 
 @app.route('/savePayment', methods = ['POST'])
 def save_payment():
+    print("HIT")
+    addCreditCard("Johnny.Bravo@gmail.com", request.form["ccNum"], request.form["ccv"], request.form["expMonth"], request.form["expYear"], request.form["streetAddress1"], request.form["streetAddress2"], request.form["city"], request.form["state"], request.form["zip"])
+    return redirect('../payment')
+
+@app.route('/removeCards', methods = ['POST'])
+def remove_cards():
+    for card in request.form:
+        deleteCard("Johnny.Bravo@gmail.com", card)
     return redirect('../payment')
 
 
