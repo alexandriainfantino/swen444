@@ -13,3 +13,48 @@
 .charity-well-sub{
     margin-bottom:2%;
 }
+
+#charityForm input:not(#irsInput), div.input-group{
+    margin-bottom:2%;
+}
+
+#charityFollowers div.charity-followers-left{
+    border: 1px solid;
+    padding: 6%;
+    background: #E0E0E0;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+#charityFollowers div.charity-followers-right{
+    border: 1px solid;
+    padding: 6%;
+    background: #E0E0E0;
+    height: 50px;
+}
+
+#charityFollowersContainer{
+    height: 50px;
+}
+
+#charityFollowers{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#charityFollowers div{
+    display:inline;
+}
+
+.icon-purple-lg{
+    color: #673AB7;
+    font-size: 35px;
+}
+
+.icon-purple{
+    color: "#673AB7";    
+}

@@ -8,11 +8,38 @@
         </div>
         <div class="row">
             <div class="col-sm-5 col-md-5 col-lg-5 well charity-well">
-                <h4>Here's some stuff</h4>
+                <form role="form" class="form-vertical">
+                    <div class="form-group" id="charityForm">
+                        <label>Edit your public infromation</label>
+                        <input type="text" class="form-control" id="nameInput" placeholder="Charity Name">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="irsInput" placeholder="IRS 501C">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-question-sign"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="tagInput" placeholder="Tags">
+                        <input type="textarea" class="form-control" id="descriptionInput" rows="5" placeholder="Charity Discription">
+                        <button type="submit" class="btn btn-green">Submit</button>
+                        <button class="btn btn-grey">Cancel</button>
+                    </div>
+                </form>
             </div>
             <div class="col-sm-5 col-md-5 col-lg-5 charity-well">
                 <div class="row well charity-well-sub">
-                    <h4>Followers</h4>
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <h2 class="charity-inline">Followers</h2>
+                    </div>
+                    <div class="col-sm-7 col-md-7 col-lg-7" id="charityFollowersContainer">
+                        <div id="charityFollowers">
+                            <div class="charity-followers-left">
+                                <i class="glyphicon glyphicon-user icon-purple-lg"></i>
+                            </div>
+                            <div class="charity-followers-right">
+                                <div>100</div>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
                 <div class="row well charity-well-sub">
                     <h4>Goals</h4>
