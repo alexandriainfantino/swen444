@@ -19,7 +19,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" id="tagInput" placeholder="Tags">
-                        <input type="textarea" class="form-control" id="descriptionInput" rows="5" placeholder="Charity Discription">
+                        <textarea class="form-control" id="descriptionInput" rows="5" placeholder="Charity Discription"></textarea>
                         <button type="submit" class="btn btn-green">Submit</button>
                         <button class="btn btn-grey">Cancel</button>
                     </div>
@@ -36,13 +36,31 @@
                                 <i class="glyphicon glyphicon-user icon-purple-lg"></i>
                             </div>
                             <div class="charity-followers-right">
-                                <div>100</div>
+                                <div id="charityFollowersCount">100</div>
                             </div>
                         </div>
                     </div> 
                 </div>
                 <div class="row well charity-well-sub">
-                    <h4>Goals</h4>
+                    <div class="col-sm-7 col-md-7 col-lg-7">
+                        <h2>Your Goals</h2>
+                        <hr>
+                        <p class="opacity-text">
+                            Here is a summary of your goals. You can edit these from the 'Goals' tab.
+                        </p>
+                    </div>
+                    <div class="col-sm-5 col-md-5 col-lg-5">
+                        <div id="goalsOverviewContainer">
+                            <div class="goal-container">
+                                <div id="goal1Top"></div>
+                                <div id="goal1Bottom"></div>
+                            </div>
+                            <div class="goal-container">
+                                <div id="goal2Top"></div>
+                                <div id="goal2Bottom"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
