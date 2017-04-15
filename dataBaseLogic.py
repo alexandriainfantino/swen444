@@ -32,7 +32,7 @@ def getUsers():
 
 def getUserById(userId):
     user = query_db('select * from user where id=?', (userId,)).fetchone()
-    return dict(id=user[0], password=user[2].encode('ascii', 'ignore'), email=user[1], isDonor=user[3])
+    return dict(id=user[0], password=user[2], email=user[1], isDonor=user[3])
 
 def getUserByEmail(email):
     user = query_db('select * from user where email=?', (email,)).fetchone()
@@ -46,7 +46,12 @@ def getCreditCardByUserId(userId):
 def getCharityInfoByCharityId(charityId):
     charity = query_db('select * from charity_info where charID=?', (charityId,)).fetchone()
     return dict(name=charity[0], identificationNum=charity[1], description=charity[2], streetAdd = charity[3],
-                 city=charity[4], state=charity[5], zip=charity[6], userId=charity[7], charId=charity[8])
+                 city=charity[4], state=charity[5], zip=charity[6], country=charity[7], userId=charity[8], charId=charity[9])
+
+def getCharityInfoByUserId(userId):
+    charity = query_db('select * from charity_info where userID=?', (userId,)).fetchone()
+    return dict(name=charity[0], identificationNum=charity[1], description=charity[2], streetAdd = charity[3],
+                 city=charity[4], state=charity[5], zip=charity[6], country=charity[7], userId=charity[8], charId=charity[9])
 
 def getDonorInfoByUserId(userId):
     donor = query_db('select * from donor_info where userID=?', (userId,)).fetchone()
@@ -69,7 +74,7 @@ def getCharityTags(charityId):
 
 def getCharitiesByTags(tag):
     return [dict(name=row[0], identificationNum=row[1], description=row[2], streetAdd = row[3],
-                 city=row[4], state=row[5], zip=row[6], userId=row[7], charId=row[8]) for row in
+                 city=row[4], state=row[5], zip=row[6], country=charity[7], userId=charity[8], charId=charity[9]) for row in
             query_db('select * from charity_info inner join tags on charity_info.charID = tags.charityId where '
                      'tags.tag=?', (tag,)).fetchall()]
 
@@ -78,10 +83,10 @@ def editDonorPersonalInfo(old_email, email, firstName, lastName, streetAdd1, str
     user = getUserByEmail(email)
     edit_db('UPDATE donor_info SET firstName=?, lastName=?, streetAdd1=?, streetAdd2=?, city=?, state=?, zip=? WHERE userId=?', (firstName, lastName, streetAdd1, streetAdd2, city, state, zip , user["id"],))
 
-def editCharityPersonalInfo(old_email, email, firstName, lastName, streetAddress, city, state, zip, country):
+def editCharityPersonalInfo(old_email, email, streetAddress, city, state, zip, country):
     edit_db('UPDATE user SET email=? WHERE email=?', (email , old_email))
     user = getUserByEmail(email)
-    edit_db('UPDATE charity_info SET streetAddress=?, city= ?, state=?, zip=?, country=? WHERE userId=?', (sreetAddress, city, state, zip , user["id"],))
+    edit_db('UPDATE charity_info SET streetAddress=?, city= ?, state=?, zip=?, country=? WHERE userId=?', (streetAddress, city, state, zip ,country, user["id"],))
 
 def editPassword(email, password):
     edit_db('UPDATE user SET password=? WHERE email=?', (password , email,))
