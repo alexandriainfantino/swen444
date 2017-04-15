@@ -113,7 +113,11 @@ def log_in():
 def login():
     user = getUserByEmail(request.form['email'])
     session['userId'] = user["id"]
-    return redirect('../newsFeed')
+    if user["isDonor"] == 1:
+        return redirect('../newsFeed')
+    else:
+        #Charity Admin Page
+        pass
 
 @app.route('/selection')
 def selection():
