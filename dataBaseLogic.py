@@ -48,6 +48,11 @@ def getCharityInfoByCharityId(charityId):
     return dict(name=charity[0], identificationNum=charity[1], description=charity[2], streetAdd = charity[3],
                  city=charity[4], state=charity[5], zip=charity[6], country=charity[7], userId=charity[8], charId=charity[9])
 
+def getCharityInfoByName(name):
+    charity = query_db('select * from charity_info where name=?', (name,)).fetchone()
+    return dict(name=charity[0], identificationNum=charity[1], description=charity[2], streetAdd = charity[3],
+                 city=charity[4], state=charity[5], zip=charity[6], country=charity[7], userId=charity[8], charId=charity[9])
+
 def getCharityInfoByUserId(userId):
     charity = query_db('select * from charity_info where userID=?', (userId,)).fetchone()
     return dict(name=charity[0], identificationNum=charity[1], description=charity[2], streetAdd = charity[3],
