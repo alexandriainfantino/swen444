@@ -34,6 +34,7 @@
 }
 
 .profileButtons {
+    min-width: 145px;
     width: 18%;
     height: 20%;
 }
