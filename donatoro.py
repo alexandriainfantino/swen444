@@ -102,7 +102,25 @@ def donate():
 
 @app.route('/results')
 def results():
-    return render_template('searchResults.jinja')
+    # results = [
+    #     {'Title':'Electronic Frontier Foundation','Description':'EFF'}
+    #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
+    #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
+    # ]
+    results = [
+        [
+            {'Title':'Electronic Frontier Foundation','Description':'EFF'},
+            {'Title': 'Canonical', 'Description': 'Creators of Ubuntu'}
+        ],
+        [
+            {'Title':'Planned Parenthood','Description':'Good for people'},
+            {'Title':'RITGA','Description':'Also Good For people'}
+        ],
+        [
+            {'Title':'Test Charity', 'Description':'Test Description'}
+        ]
+    ]
+    return render_template('searchResults.html',results=results)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
