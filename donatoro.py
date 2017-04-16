@@ -126,6 +126,11 @@ def login():
         #Charity Admin Page
         pass
 
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.pop('userId', None)
+    return redirect('/')
+
 @app.route('/selection')
 def selection():
     return render_template('registration/selection.jinja')
