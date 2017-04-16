@@ -1,0 +1,68 @@
+/* The sidebar */
+.sidenav {
+    height: 93%; /* 100% Full-height */
+    width: 12%; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 50px;
+    left: 0;
+    background-color: #E0E0E0; /* White*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 10px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    border-right: 30px black;
+}
+
+/* The sidebar links */
+.sidenav a {
+    padding: 4px 4px 4px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* The sidebar checkbox */
+.sidenav input {
+    padding: 4px 4px 4px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: inline;
+    transition: 0.3s
+}
+
+/* Sidebar Filter Icon and Title placement */
+.sidenav div {
+    padding-left: 25%;
+}
+
+/* Sidebar Title formatting. */
+.sidenav div h2 {
+    font-size: 20px;
+    color: black;
+}
+
+.results {
+    margin-left: 12%;
+}
+
+.results h1{
+    padding-left: 10%;
+}
+
+.box{
+    margin-left: 10%;
+}
+
+.box h2 {
+    padding-left: 10px;
+    width: 300%;
+    background-color: #673AB7;
+    color: white;
+}
+.box .description{
+    width: 300%;
+    border: 2px solid #E0E0E0;
+}
