@@ -48,21 +48,22 @@
     margin-left: 12%;
 }
 
-.results h1{
-    padding-left: 10%;
+h1{
+    padding-left: 22%;
 }
 
 .box{
-    margin-left: 10%;
+    margin: 0% 15%;
+    display: inline-block;
 }
 
 .box h2 {
     padding-left: 10px;
-    width: 300%;
+    width: 500%;
     background-color: #673AB7;
     color: white;
 }
 .box .description{
-    width: 300%;
+    width: 500%;
     border: 2px solid #E0E0E0;
 }
