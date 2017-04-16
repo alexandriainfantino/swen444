@@ -17,6 +17,14 @@
     border-radius: 5px;
 }
 
+a:visited {
+    color: #FFFFFF;
+}
+
+a {
+    color: #FFFFFF;
+}
+
 .selectionTitle {
     font-size: 30px;
 }
