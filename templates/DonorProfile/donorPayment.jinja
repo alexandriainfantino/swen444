@@ -12,12 +12,14 @@
         <br>
         <label for="">Your Saved Credit Cards</label>
         <br>
+        <form action="../removeCards" method="post">
         {% for card in cards %}
-                <input type="checkbox" value="{{card}}"> Card Ending in {{card}}
+                <input type="checkbox" name="{{card["id"]}}"> Card Ending in {{card["num"]}}
                 <br>
         {% endfor %}
         <br>
         <button class="btn btn-purple leftBox formButtons"><b>Remove Cards</b></button>
+        </form>
         <br>
         <br>
         <br>
@@ -39,7 +41,7 @@
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" name="Exp. Year" size="30" type="number" placeholder="Exp. Year"/>
+                    <input class="form-control" name="expYear" size="30" type="number" placeholder="Exp. Year"/>
                 </div>
             </div>
         </div>
@@ -56,10 +58,13 @@
             <div class='col-sm-4'>
                 <div class='form-group'>
                     <select class="form-control" name="state">
-                        <option value="" disabled selected>State</option>
-                        <option value="Alabama">Alabama</option>
-                        <option value="Alaska">Alaska</option>
-                        <option value="Arizona">Arizona</option>
+                        {% for n in states %}
+                            {% if n == state %}
+                                <option selected>{{n}}</option>
+                            {% else %}                            
+                                <option>{{n}}</option>
+                            {% endif %}
+                        {% endfor %}
                     </select>
                 </div>
             </div>

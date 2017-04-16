@@ -14,8 +14,8 @@
 </head>
 <body>
     <div class="topnav">
-        <a href="/"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
         {% if username != null %}
+            <a href="/newsFeed"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
             <div class="dropdown username">
                 <button class="dropdown-toggle username" type="button" data-toggle="dropdown">{{username}}
                 <span class="caret"></span></button>
@@ -34,6 +34,8 @@
                     <span><input type="text" class="form-control searchBar" placeholder="Search Charities..."></span>
                 </form>
             </div>
+        {% else %}
+            <a href="/"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
         {% endif %}
     </div>
 
