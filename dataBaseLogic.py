@@ -1,7 +1,8 @@
 from flask import Flask, g
 import sqlite3
+import os
 
-DATABASE = 'C:\\Users\\Joshua\\Desktop\\swen444\\donatoro.sqlite'
+DATABASE = os.getcwd() + '/donatoro.sqlite'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
