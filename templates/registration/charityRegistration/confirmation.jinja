@@ -6,6 +6,7 @@
 
 {% block body %}
 <div class="formContainer">
+<form action="/">
     <div class="form-group">
         <br>
         <label for="">Is this information correct?</label>
@@ -25,6 +26,7 @@
         <br>
         <textarea class="form-control" id="description" rows="6" readonly>Charity Description: {{ charityInfo['description'] }}</textarea>
         <br>
+</form>
         <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
         <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
     </div>

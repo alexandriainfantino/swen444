@@ -1,7 +1,7 @@
 from flask import Flask, g
 import sqlite3
 
-DATABASE = 'C:\\Users\\Joshua\\Desktop\\swen444\\donatoro.sqlite'
+DATABASE = 'C:\\Users\\alexa\\PycharmProjects\\swen444\\donatoro.sqlite'
 
 app = Flask(__name__)
 app.config.from_object(__name__)

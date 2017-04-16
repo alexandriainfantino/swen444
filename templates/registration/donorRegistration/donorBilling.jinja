@@ -65,7 +65,7 @@
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="zip" size="5" type="number" placeholder="Zip Code" required
+                    <input class="form-control" id="zip" size="5" pattern="[0-9]{5}" type="number" placeholder="Zip Code" required
                            oninvalid="this.setCustomValidity('Please enter a valid 5 digit zip code')"
                            oninput="setCustomValidity('')"/>
                 </div>
