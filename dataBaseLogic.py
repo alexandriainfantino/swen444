@@ -80,7 +80,7 @@ def getCharityTags(charityId):
 
 def getCharitiesByTags(tag):
     return [dict(name=row[0], identificationNum=row[1], description=row[2], streetAdd = row[3],
-                 city=row[4], state=row[5], zip=row[6], country=charity[7], userId=charity[8], charId=charity[9]) for row in
+                 city=row[4], state=row[5], zip=row[6], country=row[7], userId=row[8], charId=row[9]) for row in
             query_db('select * from charity_info inner join tags on charity_info.charID = tags.charityId where '
                      'tags.tag=?', (tag,)).fetchall()]
 

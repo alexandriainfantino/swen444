@@ -195,6 +195,7 @@ def results():
             {'Title':'Test Charity', 'Description':'Test Description'}
         ]
     ]
+    getCharitiesByTags('animals')
     return render_template('searchResults.jinja', results=search_results)
 
 if __name__ == '__main__':
