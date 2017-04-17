@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 def get_db():
-    print DATABASE
     return sqlite3.connect(app.config['DATABASE'])
 
 @app.teardown_appcontext
