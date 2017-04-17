@@ -6,44 +6,55 @@
 
 {% block body %}
 <div class="formContainer">
+<form action="/donorBilling">
     <div class="form-group">
         <br>
         <label for="">Account Information</label>
-        <input type="email" class="form-control" id="emailInput" placeholder="Email">
+        <input type="email" class="form-control" id="emailInput" placeholder="Email" required>
         <br>
-        <input type="password" class="form-control leftBox" id="password" placeholder="Password">
-        <input type="password" class="form-control rightBox" id="confirmPassword" placeholder="Confirm Password">
-        <br>
-        <br>
-        <br>
-        <input type="text" class="form-control leftBox" id="firstName" placeholder="First Name">
-        <input type="text" class="form-control rightBox" id="lastName" placeholder="Last Name">
+        <input type="password" class="form-control leftBox" id="password" placeholder="Password" required>
+        <input type="password" class="form-control rightBox" id="confirmPassword" placeholder="Confirm Password" required>
         <br>
         <br>
         <br>
-        <input type="text" class="form-control" id="streetAddress1" placeholder="Street Address Line 1">
+        <input type="text" class="form-control leftBox" id="firstName" placeholder="First Name" required>
+        <input type="text" class="form-control rightBox" id="lastName" placeholder="Last Name" required>
+        <br>
+        <br>
+        <br>
+        <input type="text" class="form-control" id="streetAddress1" placeholder="Street Address Line 1" required>
         <br>
         <input type="text" class="form-control descriptionBox" id="streetAddress2" placeholder="Street Address Line 2">
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="city" size="30" type="text" placeholder="City"/>
+                    <input class="form-control" id="city" size="30" type="text" placeholder="City" required/>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="state" size="30" type="text" placeholder="State"/>
+                     <select class="form-control" name="state" required>
+                        <option value="" disabled selected hidden>State</option>
+                        {% for n in states %}
+                            <option>{{n}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="zip" size="30" type="number" placeholder="Zip Codes"/>
+                    <input class="form-control" id="zip" size="5" type="text" pattern="[0-9]{5}" placeholder="Zip Code"
+                           required oninvalid="this.setCustomValidity('Please enter a valid 5 digit zip code')"
+                           oninput="setCustomValidity('')"/>
                 </div>
             </div>
         </div>
-        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
+
+        <a href="/selection"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
         <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
+
     </div>
+    </form>
 </div>
 {% endblock %}

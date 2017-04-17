@@ -6,54 +6,74 @@
 
 {% block body %}
 <div class="formContainer">
+<form action="/newsFeed">
     <div class="form-group">
         <br>
         <label for="">Billing Information<br>(optional)</label>
-        <button class="btn btn-purple rightBox" style="width: 50px">Skip</button>
+        <a href="/newsFeed"><button type="button" class="btn btn-purple rightBox">Skip</button></a>
         <br>
         <br>
-        <input type="text" class="form-control" id="ccNum" placeholder="Credit Card Number">
+        <input type="text" class="form-control" id="ccNum" pattern="[0-9]{16}" placeholder="Credit Card Number" required
+               oninvalid="this.setCustomValidity('Please enter a valid 16 digit credit card number')"
+               oninput="setCustomValidity('')">
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="ccv" size="30" type="text" placeholder="CCV"/>
+                    <input class="form-control" id="ccv" size="30" type="text" placeholder="CCV" required
+                           pattern="[0-9]{3}"
+                           oninvalid="this.setCustomValidity('Please enter a valid 3 digit ccv number')"
+                           oninput="setCustomValidity('')"/>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="expMonth" size="30" type="number" placeholder="Exp. Month"/>
+                    <input class="form-control" id="expMonth" size="30" type="number" placeholder="Exp. Month" required
+                           pattern="[0-9]{2}"
+                           oninvalid="this.setCustomValidity('Please enter a 2 digit month. Example: March would be entered as 03')"
+                           oninput="setCustomValidity('')"/>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="Exp. Year" size="30" type="number" placeholder="Exp. Year"/>
+                    <input class="form-control" id="Exp. Year" size="30" type="number" placeholder="Exp. Year" required
+                           pattern="[0-9]{4}"
+                           oninvalid="this.setCustomValidity('Please enter a 4 digit year')"
+                           oninput="setCustomValidity('')"/>
                 </div>
             </div>
         </div>
-        <input type="text" class="form-control" id="streetAddress1" placeholder="Billing Street Line 1">
+        <input type="text" class="form-control" id="streetAddress1" placeholder="Billing Street Line 1" required>
         <br>
         <input type="text" class="form-control" id="streetAddress2" placeholder="Billing Street Line 2">
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="city" size="30" type="text" placeholder="City"/>
+                    <input class="form-control" id="city" size="30" type="text" placeholder="City" required/>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="state" size="30" type="number" placeholder="State"/>
+                     <select class="form-control" name="state" required>
+                        <option value="" disabled selected hidden>State</option>
+                        {% for n in states %}
+                            <option>{{n}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="zip" size="30" type="number" placeholder="Zip Code"/>
+                    <input class="form-control" id="zip" size="5" pattern="[0-9]{5}" type="number" placeholder="Zip Code" required
+                           oninvalid="this.setCustomValidity('Please enter a valid 5 digit zip code')"
+                           oninput="setCustomValidity('')"/>
                 </div>
             </div>
         </div>
-        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
-        <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
+    </form>
+        <a href="/donorRegistration"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
+        <button type="submit" class="btn btn-success rightBox formButtons"><b>Submit</b></button>
     </div>
 </div>
 {% endblock %}

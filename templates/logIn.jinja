@@ -6,11 +6,13 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/font-awesome.min.css') }}" />
 </head>
 <body style="background-color: #4CAF50">
+    <form action="./login" method="post">
     <div>
         <div id="loginContainer">
             <div>
                 <b>Welcome!</b>
             </div>
+            
             <div>
                 <div class="form-group centerContent">
                     <div class="cols-sm-10">
@@ -21,23 +23,25 @@
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon loginIcons"><i class="fa fa-asterisk" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="email"  placeholder="Password"/>
+                            <input type="text" class="form-control" name="password" id="password"  placeholder="Password"/>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="centerContent">
                 <div class="checkbox">
-                    <label><input type="checkbox" value="">Remember me</label>
+                    <label><input type="checkbox" name="remember" value="">Remember me</label>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-success accountButtons">Log In</button>
+                    <button class="btn btn-success accountButtons">Log In</button>
                     <br>
                     <br>
-                    <button type="button" class="btn btn-purple accountButtons">+ New Account</button>
+                    <a href="/selection"><button type="button" class="btn btn-purple accountButtons">+ New Account</button></a>
                 </div>
             </div>
+        
         </div>
     </div>
+    </form>
 </body>
 </html>

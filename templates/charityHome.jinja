@@ -41,12 +41,10 @@
                 <td><img src="{{ url_for('static', filename=n) }}" class="picture"/></td>
             {% endfor %}
             <td>
-                <button class="btn btn-success homeButtons" onClick="location.href='../donate'" ><b>Donate</b></button>
+                <button class="btn btn-success homeButtons" onClick="location.href='../donate/{{charityName}}'" ><b>Donate</b></button>
                 <br>
                 <br>                
-                <form action="../follow" method="post">
-                <button class="btn btn-purple homeButtons"><b>Follow</b></button>
-                </form>
+                <button class="btn btn-purple homeButtons" onClick="location.href='../follow/{{charityName}}'" disabled><b>Follow</b></button>
             </td>
         </div>
         </tr>

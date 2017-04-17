@@ -6,33 +6,42 @@
 
 {% block body %}
 <div class="formContainer">
+<form action="/charityConfirmation">
     <div class="form-group">
         <br>
         <label for="">Billing Information</label>
-        <input type="text" class="form-control" id="streetAddress" placeholder="Street Address">
+        <input type="text" class="form-control" id="streetAddress" placeholder="Street Address" required>
         <br>
             <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>
-                <input class="form-control" id="city" size="30" type="text" placeholder="City"/>
+                <input class="form-control" id="city" size="30" type="text" placeholder="City" required/>
             </div>
         </div>
         <div class='col-sm-4'>
             <div class='form-group'>
-                <input class="form-control" id="state" size="30" type="text" placeholder="State"/>
+                <select class="form-control" name="state" required>
+                        <option value="" disabled selected hidden>State</option>
+                        {% for n in states %}
+                            <option>{{n}}</option>
+                        {% endfor %}
+                    </select>
             </div>
         </div>
         <div class='col-sm-4'>
             <div class='form-group'>
-                <input class="form-control" id="zip" size="30" type="number" placeholder="Zip Codes"/>
+                <input class="form-control" id="zip" size="5" type="text" pattern="[0-9]{5}" placeholder="Zip Code" required
+                       oninvalid="this.setCustomValidity('Please enter a valid 5 digit zip code')"
+                           oninput="setCustomValidity('')"/>
             </div>
         </div>
     </div>
-        <input type="text" class="form-control" id="county" placeholder="Country">
         <br>
         <br>
-        <button class="btn btn-grey leftBox formButtons"><b>Back</b></button>
+
+        <a href="/charityRegistration1"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
         <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
     </div>
+    </form>
 </div>
 {% endblock %}

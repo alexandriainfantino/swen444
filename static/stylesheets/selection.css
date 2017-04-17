@@ -17,6 +17,14 @@
     border-radius: 5px;
 }
 
+.selectionBoxes a {
+    color: #FFFFFF;
+}
+
+.selectionBoxes a:hover {
+    color: #FFFFFF;
+}
+
 .selectionTitle {
     font-size: 30px;
 }
