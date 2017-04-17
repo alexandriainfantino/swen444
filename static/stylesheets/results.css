@@ -51,6 +51,7 @@ h1{
 
 /* Move and Locate table */
 table{
+    table-layout: fixed;
     margin-left: 12%;
     width: 85%;
 }
