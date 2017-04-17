@@ -1,0 +1,31 @@
+{% extends "charity/charityAdminBase.jinja" %}
+{% block body %}
+<div id="charity" class="row charity-body">
+    <div class="col-sm-8 col-md-8 col-lg-8">
+        <div class="row">
+            <div style="max-width:100%; max-height:300px">
+                <canvas id="lineChart" width="800" height="300"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div style="max-width:100%; max-height:300px">
+                <canvas id="barChart" width="800" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="row" style="height:300px">
+            <div class="charity-well well">
+                <p>This chart shows the donation amounts over time</p>
+            </div>
+        </div>
+        <div class="row" style="height:300px">
+            <div class="charity-well well">
+                <p>This chart shows a distribution of donation amounts</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/stats.js') }}"></script>
+{% endblock %}
