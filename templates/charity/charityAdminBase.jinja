@@ -2,14 +2,15 @@
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/charityAdmin.css') }}" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="{{ url_for('static', filename='lib/Chart.bundle.js')}}"></script>
 {% endblock %}
 
 {% block sidebar %}
    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
-       <a href="#" class="w3-bar-item w3-button">Welcome</a>
-       <a href="#" class="w3-bar-item w3-button">Timeline</a>
-       <a href="#" class="w3-bar-item w3-button">New post</a>
-       <a href="#" class="w3-bar-item w3-button">Statistics</a>
+       <a href="/charity/admin" class="w3-bar-item w3-button">Welcome</a>
+       <a href="/charity/timeline" class="w3-bar-item w3-button">Timeline</a>
+       <a href="/charity/post" class="w3-bar-item w3-button">New post</a>
+       <a href="/charity/stats" class="w3-bar-item w3-button">Statistics</a>
    </div>
 {% endblock %}
 
