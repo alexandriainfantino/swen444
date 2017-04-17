@@ -17,7 +17,11 @@
     border-radius: 5px;
 }
 
-.linkColor {
+.selectionBoxes a {
+    color: #FFFFFF;
+}
+
+.selectionBoxes a:hover {
     color: #FFFFFF;
 }
 
