@@ -167,6 +167,14 @@ def donate(charity):
     charityName = {'name':charity}
     return render_template('donation/donation.jinja', username="Johnny Bravo", charity=charityName, creditCard=creditCard, states=states)
 
+@app.route('/charity/admin')
+def charity_admin_welcome():
+    return render_template('charity/charityAdminWelcome.jinja')
+
+@app.route('/charity/stats')
+def charity_admin_stats():
+    return render_template('charity/charityAdminStats.jinja')
+
 @app.route('/results')
 def results():
     # results = [
