@@ -44,26 +44,31 @@
     color: black;
 }
 
-.results {
-    margin-left: 12%;
-}
-
+/* Title of webpage */
 h1{
     padding-left: 22%;
 }
 
+/* Move and Locate table */
+table{
+    margin-left: 12%;
+    width: 85%;
+}
+ /* Container for search results */
 .box{
-    margin: 0% 15%;
-    display: inline-block;
+    margin: 0% 5%;
+    width: 90%;
 }
 
+/* Charity name */
 .box h2 {
     padding-left: 10px;
     width: 100%;
     background-color: #673AB7;
     color: white;
 }
-.box .description{
-    width: 100%;
+
+/* Charity description */
+.box .description {
     border: 2px solid #E0E0E0;
 }

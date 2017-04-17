@@ -107,7 +107,7 @@ def results():
     #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
     #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
     # ]
-    results = [
+    search_results = [
         [
             {'Title':'Electronic Frontier Foundation','Description':'EFF'},
             {'Title': 'Canonical', 'Description': 'Creators of Ubuntu'}
@@ -120,7 +120,7 @@ def results():
             {'Title':'Test Charity', 'Description':'Test Description'}
         ]
     ]
-    return render_template('searchResults.html',results=results)
+    return render_template('searchResults.jinja', results=search_results)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
