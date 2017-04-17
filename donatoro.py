@@ -126,6 +126,11 @@ def login():
         #Charity Admin Page
         pass
 
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.pop('userId', None)
+    return redirect('/')
+
 @app.route('/selection')
 def selection():
     return render_template('registration/selection.jinja')
@@ -169,6 +174,28 @@ def charity_admin_welcome():
 @app.route('/charity/stats')
 def charity_admin_stats():
     return render_template('charity/charityAdminStats.jinja')
+
+@app.route('/results')
+def results():
+    # results = [
+    #     {'Title':'Electronic Frontier Foundation','Description':'EFF'}
+    #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
+    #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
+    # ]
+    search_results = [
+        [
+            {'Title':'Electronic Frontier Foundation','Description':'EFF'},
+            {'Title': 'Canonical', 'Description': 'Creators of Ubuntu'}
+        ],
+        [
+            {'Title':'Planned Parenthood','Description':'Good for people'},
+            {'Title':'RITGA','Description':'Also Good For people'}
+        ],
+        [
+            {'Title':'Test Charity', 'Description':'Test Description'}
+        ]
+    ]
+    return render_template('searchResults.jinja', results=search_results)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
