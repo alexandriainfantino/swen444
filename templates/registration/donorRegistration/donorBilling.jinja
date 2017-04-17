@@ -10,7 +10,7 @@
     <div class="form-group">
         <br>
         <label for="">Billing Information<br>(optional)</label>
-        <a href="/newsFeed"><button type="button" class="btn btn-purple rightBox" style="width: 50px">Skip</button></a>
+        <a href="/newsFeed"><button type="button" class="btn btn-purple rightBox">Skip</button></a>
         <br>
         <br>
         <input type="text" class="form-control" id="ccNum" pattern="[0-9]{16}" placeholder="Credit Card Number" required
@@ -56,7 +56,7 @@
             <div class='col-sm-4'>
                 <div class='form-group'>
                      <select class="form-control" name="state" required>
-                        <option disabled>State</option>
+                        <option value="" disabled selected hidden>State</option>
                         {% for n in states %}
                             <option>{{n}}</option>
                         {% endfor %}

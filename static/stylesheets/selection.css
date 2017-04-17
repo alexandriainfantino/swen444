@@ -17,11 +17,7 @@
     border-radius: 5px;
 }
 
-a:visited {
-    color: #FFFFFF;
-}
-
-a {
+.linkColor {
     color: #FFFFFF;
 }
 
