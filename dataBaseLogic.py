@@ -2,7 +2,7 @@ from flask import Flask, g
 import sqlite3
 import os
 
-DATABASE = os.getcwd() + '/donatoro.sqlite'
+DATABASE = os.path.abspath(os.path.dirname(__file__)) + '/donatoro.sqlite'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
