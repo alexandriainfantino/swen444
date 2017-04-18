@@ -124,8 +124,7 @@ def login():
     if user["isDonor"] == 1:
         return redirect('../newsFeed')
     else:
-        #Charity Admin Page
-        pass
+        return redirect('../charity/admin')
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
@@ -170,11 +169,13 @@ def donate(charity):
 
 @app.route('/charity/admin')
 def charity_admin_welcome():
-    return render_template('charity/charityAdminWelcome.jinja')
+    info = getCharityInfoByUserId(session['userId'])
+    return render_template('charity/charityAdminWelcome.jinja', username=info["name"])
 
 @app.route('/charity/stats')
 def charity_admin_stats():
-    return render_template('charity/charityAdminStats.jinja')
+    info = getCharityInfoByUserId(session['userId'])
+    return render_template('charity/charityAdminStats.jinja', username=info["name"])
 
 @app.route('/results')
 def results():
