@@ -21,6 +21,9 @@
                             <input type="text" class="form-control" name="email" id="email"  placeholder="Email"/>
                         </div>
                         <br>
+                        {% if error != "" %}
+                            <div style="color:red;">{{error}}</div>
+                        {% endif %}
                         <div class="input-group">
                             <span class="input-group-addon loginIcons"><i class="fa fa-asterisk" aria-hidden="true"></i></span>
                             <input type="password" class="form-control" name="password" id="password"  placeholder="Password"/>
