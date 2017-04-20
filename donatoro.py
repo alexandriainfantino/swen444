@@ -158,14 +158,20 @@ def donorBilling():
 
 @app.route('/donationConfirmation')
 def donationConfirmation():
+    user = getUserById(session['userId'])
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(session['userId'])
     donation={'card':1234,'amount':100,'charity':'Electronic Frontier Foundation'}
-    return render_template('donation/confirm.jinja', username="Johnny Bravo", donation = donation)
+    return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation)
 
 @app.route('/donate/<charity>')
 def donate(charity):
+    user = getUserById(session['userId'])
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(session['userId'])
     creditCard = {'last4':1234}
     charityName = {'name':charity}
-    return render_template('donation/donation.jinja', username="Johnny Bravo", charity=charityName, creditCard=creditCard, states=states)
+    return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=creditCard, states=states)
 
 @app.route('/charity/admin')
 def charity_admin_welcome():
@@ -177,27 +183,42 @@ def charity_admin_stats():
     info = getCharityInfoByUserId(session['userId'])
     return render_template('charity/charityAdminStats.jinja', username=info["name"])
 
-@app.route('/results')
+@app.route('/results', methods=['POST'])
 def results():
     # results = [
     #     {'Title':'Electronic Frontier Foundation','Description':'EFF'}
     #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
     #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
     # ]
-    search_results = [
-        [
-            {'Title':'Electronic Frontier Foundation','Description':'EFF'},
-            {'Title': 'Canonical', 'Description': 'Creators of Ubuntu'}
-        ],
-        [
-            {'Title':'Planned Parenthood','Description':'Good for people'},
-            {'Title':'RITGA','Description':'Also Good For people'}
-        ],
-        [
-            {'Title':'Test Charity', 'Description':'Test Description'}
-        ]
-    ]
-    return render_template('searchResults.jinja', results=search_results)
+    user = getUserById(session['userId'])
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(session['userId'])
+        search_term = request.form['searchQuery']
+        all_tags = getTags()
+        search_tags = []
+        for item in all_tags:
+            if search_term in str(item['tag']):
+                search_tags.append(item['tag'].encode("ascii"))
+        print search_tags
+
+        search_results = []
+        counter = 0
+        temp = []
+        for tag in search_tags:
+            for item in getCharitiesByTags(tag):
+                temp.append(
+                    {'Description':item['description'],
+                     'Title':item['name']
+                     }
+                )
+                counter+=1
+                if counter%2 ==0:
+                    search_results.append(temp)
+                    temp = []
+            if len(temp) != 0:
+                search_results.append(temp)
+
+        return render_template('searchResults.jinja', results=search_results, username=(info["firstName"] + " " + info["lastName"]), email=user["email"])
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
