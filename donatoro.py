@@ -156,12 +156,12 @@ def donorRegistration():
 def donorBilling():
     return render_template('registration/donorRegistration/donorBilling.jinja', states=states)
 
-@app.route('/donationConfirmation')
-def donationConfirmation():
+@app.route('/donationConfirmation/<charity>')
+def donationConfirmation(charity):
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
         info = getDonorInfoByUserId(session['userId'])
-    donation={'card':1234,'amount':100,'charity':'Electronic Frontier Foundation'}
+    donation={'card':1234,'amount':100,'charity':charity}
     return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation)
 
 @app.route('/donate/<charity>')

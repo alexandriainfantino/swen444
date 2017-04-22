@@ -12,20 +12,22 @@
         <br>
         <hr>
         <br>
-        <b>Charity Name:</b>
-        {{ donation['charity'] }}
-        <br>
-        <br>
-        <b>Card Ending in:</b>
-        {{ donation['card'] }}
-        <br>
-        <br>
-        <b>Amount:</b>
-        ${{ donation['amount'] }}
-        <br>
-        <br>
-        <a href=""><button class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
-        <a href="../newsFeed"><button class="btn btn-success rightBox formButtons"><b>Submit</b></button></a>
+        <form>
+            <b>Charity Name:</b>
+            {{ donation['charity'] }}
+            <br>
+            <br>
+            <b>Card Ending in:</b>
+            {{ donation['card'] }}
+            <br>
+            <br>
+            <b>Amount:</b>
+            ${{ donation['amount'] }}
+            <br>
+            <br>
+            <button class="btn btn-grey leftBox formButtons" formaction={{ url_for('donate', charity=donation['charity'])}}><b>Back</b></button>
+            <button class="btn btn-success rightBox formButtons" formaction={{ url_for('news_feed')}}><b>Submit</b></button>
+        </form>
     </div>
 </div>
 {% endblock %}
