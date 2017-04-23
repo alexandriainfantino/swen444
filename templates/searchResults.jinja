@@ -20,20 +20,21 @@
 </div>
 
     <h1>Search Results</h1>
-
     <table>
         {% for list in results %}
         <tr>
             {% for charity in list %}
             <td>
-            <a href="/donate/{{ charity['Title'] }}">
-                <div class="box"> {#  style="float: right"> #}
-                    <h2>{{ charity['Title'] }}</h2>
-                    <div class="description">
-                        <p>{{ charity['Description'] }}</p>
+            <form method='post' action="/donate/{{ charity['Title'] }}">
+                <input type="hidden" name="searchQuery" value="{{ query }}">
+                    <div class="box">
+                        <h2>{{ charity['Title'] }}</h2>
+                        <div class="description">
+                            <p>{{ charity['Description'] }}</p>
+                        </div>
                     </div>
-                </div>
-            </a>
+                <input type="submit" value="donate">
+            </form>
             </td>
             {% endfor %}
         </tr>

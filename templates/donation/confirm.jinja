@@ -12,7 +12,8 @@
         <br>
         <hr>
         <br>
-        <form>
+        <form method="post">
+            <input type="hidden" name="searchQuery" value="{{ query }}">
             <b>Charity Name:</b>
             {{ donation['charity'] }}
             <br>
@@ -25,7 +26,7 @@
             ${{ donation['amount'] }}
             <br>
             <br>
-            <button class="btn btn-grey leftBox formButtons" formaction={{ url_for('donate', charity=donation['charity'])}}><b>Back</b></button>
+            <button class="btn btn-grey leftBox formButtons" formaction={{ url_for('donate', charity=donation['charity']) }}><b>Back</b></button>
             <button class="btn btn-success rightBox formButtons" formaction={{ url_for('news_feed')}}><b>Submit</b></button>
         </form>
     </div>

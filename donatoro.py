@@ -156,22 +156,24 @@ def donorRegistration():
 def donorBilling():
     return render_template('registration/donorRegistration/donorBilling.jinja', states=states)
 
-@app.route('/donationConfirmation/<charity>')
+@app.route('/donationConfirmation/<charity>', methods=["POST"])
 def donationConfirmation(charity):
     user = getUserById(session['userId'])
+    search_term = request.form['searchQuery']
     if user["isDonor"] == 1:
         info = getDonorInfoByUserId(session['userId'])
     donation={'card':1234,'amount':100,'charity':charity}
-    return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation)
+    return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation, query=search_term)
 
-@app.route('/donate/<charity>')
+@app.route('/donate/<charity>', methods=['POST'])
 def donate(charity):
     user = getUserById(session['userId'])
+    search_term = request.form['searchQuery']
     if user["isDonor"] == 1:
         info = getDonorInfoByUserId(session['userId'])
     creditCard = {'last4':1234}
     charityName = {'name':charity}
-    return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=creditCard, states=states)
+    return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=creditCard, states=states, query=search_term)
 
 @app.route('/charity/admin')
 def charity_admin_welcome():
@@ -190,10 +192,10 @@ def results():
     #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
     #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
     # ]
+    search_term = request.form['searchQuery']
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
         info = getDonorInfoByUserId(session['userId'])
-        search_term = request.form['searchQuery']
         all_tags = getTags()
         search_tags = []
         for item in all_tags:
@@ -218,7 +220,8 @@ def results():
             if len(temp) != 0:
                 search_results.append(temp)
 
-        return render_template('searchResults.jinja', results=search_results, username=(info["firstName"] + " " + info["lastName"]), email=user["email"])
+        print search_term
+        return render_template('searchResults.jinja', results=search_results, username=(info["firstName"] + " " + info["lastName"]), email=user["email"], query=search_term)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
