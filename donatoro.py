@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, g, session
 from dataBaseLogic import *
 import sys
+import ast
 
 app = Flask(__name__)
 
@@ -160,9 +161,62 @@ def donorBilling():
 def donationConfirmation(charity):
     user = getUserById(session['userId'])
     search_term = request.form['searchQuery']
+    donation = {'charity': charity}
+    if "radio" in request.form:
+        if request.form['radio'] == "new":
+            donation['radio'] = request.form['radio']
+    # User using a new card.
+    print "FORM", request.form
+    if request.form['radio'] == "new":
+        # Billing Location Info Submitted
+        if "streetAddress1" in request.form:
+            donation['streetAddress1'] = request.form['streetAddress1']
+        if "streetAddress2" in request.form:
+            donation['streetAddress2'] = request.form['streetAdress2']
+        if "city" in request.form:
+            donation['city'] = request.form['city']
+        if "state" in request.form:
+            donation['state'] = request.form['state']
+        if "zip" in request.form:
+            donation['zip'] = request.form['zip']
+        # Credit Card Info Submitted
+        if "ccNum" in request.form:
+            donation['ccNum'] = request.form['ccNum']
+            donation['last4'] = request.form['ccNum'][-4:]
+        if "ccv" in request.form:
+            donation['ccv'] = request.form['ccv']
+        if "expMonth" in request.form:
+            donation['expMonth'] = request.form['expMonth']
+        if "expYear" in request.form:
+            donation['expYear'] = request.form['expYear']
+    else:
+        ccInfo = ast.literal_eval(request.form['radio'])
+        print ccInfo
+        if "streetAdd1" in ccInfo:
+            donation['streetAddress1'] = ccInfo['streetAdd1']
+        if "streetAdd2" in ccInfo:
+            donation['streetAddress2'] = ccInfo['streetAdd2']
+        if "city" in ccInfo:
+            donation['city'] = ccInfo['city']
+        if "state" in ccInfo:
+            donation['state'] = ccInfo['state']
+        if "zip" in ccInfo:
+            donation['zip'] = ccInfo['zip']
+        # Credit Card Info Submitted
+        if "ccn" in ccInfo:
+            donation['ccNum'] = ccInfo['ccn']
+            donation['last4'] = str(ccInfo['ccn'])[-4:]
+        if "ccv" in ccInfo:
+            donation['ccv'] = ccInfo['ccv']
+        if "expMonth" in ccInfo:
+            donation['expMonth'] = ccInfo['expMonth']
+        if "expYear" in ccInfo:
+            donation['expYear'] = ccInfo['expYear']
+    if "amount" in request.form:
+        donation['amount'] = request.form['amount']
     if user["isDonor"] == 1:
         info = getDonorInfoByUserId(session['userId'])
-    donation={'card':1234,'amount':100,'charity':charity}
+    print donation['last4']
     return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation, query=search_term)
 
 @app.route('/donate/<charity>', methods=['POST'])
@@ -171,9 +225,26 @@ def donate(charity):
     search_term = request.form['searchQuery']
     if user["isDonor"] == 1:
         info = getDonorInfoByUserId(session['userId'])
-    creditCard = {'last4':1234}
+        print info
+        credit_cards = getCreditCardByUserId(info['userId'])
+    #creditCard = {'last4':1234}
     charityName = {'name':charity}
-    return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=creditCard, states=states, query=search_term)
+    return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=credit_cards, states=states, query=search_term)
+
+@app.route('/enterDonation', methods=['POST'])
+def enter_donation():
+    addr1 = request.form['streetAddress1']
+    addr2 = request.form['streetAddress2']
+    city = request.form['city']
+    state = request.form['state']
+    zip = request.form['zip']
+    ccNum = request.form['ccNum']
+    ccv = request.form['ccv']
+    expMonth = request.form['expMonth']
+    expYear = request.form['expYear']
+    amount = request.form['amount']
+    charity = request.form['charity']
+    return redirect('/newsFeed')
 
 @app.route('/charity/admin')
 def charity_admin_welcome():

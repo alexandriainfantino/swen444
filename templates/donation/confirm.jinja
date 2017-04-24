@@ -14,12 +14,23 @@
         <br>
         <form method="post">
             <input type="hidden" name="searchQuery" value="{{ query }}">
+            <input type="hidden" name="streetAddress1" value="{{ donation['streetAddress1'] }}">
+            <input type="hidden" name="streetAddress2" value="{{ donation['streetAddress2'] }}">
+            <input type="hidden" name="city" value="{{ donation['city'] }}">
+            <input type="hidden" name="state" value="{{ donation['state'] }}">
+            <input type="hidden" name="zip" value="{{ donation['zip'] }}">
+            <input type="hidden" name="ccNum" value="{{ donation['ccNum'] }}">
+            <input type="hidden" name="ccv" value="{{ donation['ccv'] }}">
+            <input type="hidden" name="expMonth" value="{{ donation['expMonth'] }}">
+            <input type="hidden" name="expYear" value="{{ donation['expYear'] }}">
+            <input type="hidden" name="amount" value="{{ donation['amount'] }}">
+            <input type="hidden" name="charity" value="{{ donation['charity'] }}">
             <b>Charity Name:</b>
             {{ donation['charity'] }}
             <br>
             <br>
             <b>Card Ending in:</b>
-            {{ donation['card'] }}
+            {{ donation['last4'] }}
             <br>
             <br>
             <b>Amount:</b>
@@ -27,7 +38,7 @@
             <br>
             <br>
             <button class="btn btn-grey leftBox formButtons" formaction={{ url_for('donate', charity=donation['charity']) }}><b>Back</b></button>
-            <button class="btn btn-success rightBox formButtons" formaction={{ url_for('news_feed')}}><b>Submit</b></button>
+            <button class="btn btn-success rightBox formButtons" formaction={{ url_for('enter_donation')}}><b>Submit</b></button>
         </form>
     </div>
 </div>
