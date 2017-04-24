@@ -228,59 +228,68 @@ def donate(charity):
     user = getUserById(session['userId'])
     search_term = request.form['searchQuery']
 
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(session['userId'])
+        credit_cards = getCreditCardByUserId(info['userId'])
+        for card in credit_cards:
+            print card
+
     donation = {}
-    # Billing Location Info Submitted
-    if 'radio' in request.form and request.form['radio'] == "new":
-        donation['radio'] = "new"
-        if "streetAddress1" in request.form:
-            donation['streetAddress1'] = request.form['streetAddress1']
-        else:
-            donation['streetAddress1']=""
-        if "streetAddress2" in request.form:
-            donation['streetAddress2'] = request.form['streetAddress2']
-        else:
-            donation['streetAddress2']=""
-        if "city" in request.form:
-            donation['city'] = request.form['city']
-        else:
-            donation['city']=""
-        if "state" in request.form:
-            donation['state'] = request.form['state']
-        else:
-            donation['state']=""
-        if "zip" in request.form:
-            donation['zip'] = request.form['zip']
-        else:
-            donation['zip']=""
-        # Credit Card Info Submitted
+    if 'radio' in request.form:
+        # Going back from confirmation page to donate page, after filling in new credit card.
+        if request.form['radio'] == "new":
+            donation['radio'] = "new"
+            if "streetAddress1" in request.form:
+                donation['streetAddress1'] = request.form['streetAddress1']
+            else:
+                donation['streetAddress1']=""
+            if "streetAddress2" in request.form:
+                donation['streetAddress2'] = request.form['streetAddress2']
+            else:
+                donation['streetAddress2']=""
+            if "city" in request.form:
+                donation['city'] = request.form['city']
+            else:
+                donation['city']=""
+            if "state" in request.form:
+                donation['state'] = request.form['state']
+            else:
+                donation['state']=""
+            if "zip" in request.form:
+                donation['zip'] = request.form['zip']
+            else:
+                donation['zip']=""
+            # Credit Card Info Submitted
+            if "ccNum" in request.form:
+                donation['ccNum'] = request.form['ccNum']
+                donation['last4'] = request.form['ccNum'][-4:]
+            else:
+                donation['ccNum']=""
+                donation['last4'] = ""
+            if "ccv" in request.form:
+                donation['ccv'] = request.form['ccv']
+            else:
+                donation['ccv']=""
+            if "expMonth" in request.form:
+                donation['expMonth'] = request.form['expMonth']
+            else:
+                donation['expMonth']=""
+            if "expYear" in request.form:
+                donation['expYear'] = request.form['expYear']
+            else:
+                donation['expYear']=""
         if "ccNum" in request.form:
             donation['ccNum'] = request.form['ccNum']
             donation['last4'] = request.form['ccNum'][-4:]
         else:
-            donation['ccNum']=""
+            donation['ccNum'] = ""
             donation['last4'] = ""
-        if "ccv" in request.form:
-            donation['ccv'] = request.form['ccv']
-        else:
-            donation['ccv']=""
-        if "expMonth" in request.form:
-            donation['expMonth'] = request.form['expMonth']
-        else:
-            donation['expMonth']=""
-        if "expYear" in request.form:
-            donation['expYear'] = request.form['expYear']
-        else:
-            donation['expYear']=""
         if "amount" in request.form:
             donation['amount'] = request.form['amount']
         else:
             donation['amount']=""
 
-    if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])
-        print info
-        credit_cards = getCreditCardByUserId(info['userId'])
-    #creditCard = {'last4':1234}
+
     charityName = {'name':charity}
     return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=credit_cards, states=states, query=search_term, donation=donation)
 

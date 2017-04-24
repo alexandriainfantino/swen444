@@ -19,7 +19,7 @@
             </span>
             <br>
             <br>
-            <input type="text" class="form-control" id="ccNum" name="ccNum" placeholder="Credit Card Number" value="{{ donation['ccNum'] }}">
+            <input type="text" class="form-control" id="ccNum" name="ccNum" placeholder="Credit Card Number" {% if donation['radio']=='new' %}value="{{ donation['ccNum'] }}" {%  endif %}>
             <br>
             <div class='row'>
                 <div class='col-sm-4'>
@@ -66,7 +66,7 @@
             </div>
             <br>
             {% for number in creditCard %}
-                <input type="radio" name="radio" value="{{ number }}"> Use Card Ending In {{ (number['ccn']|string)[-4:] }}
+                <input type="radio" name="radio" value="{{ number }}" {% if number['ccn']|string== donation['ccNum']|string %} checked="checked" {% endif %}> Use Card Ending In {{ (number['ccn']|string)[-4:] }}
                 <br>
             {% endfor %}
             <br>
