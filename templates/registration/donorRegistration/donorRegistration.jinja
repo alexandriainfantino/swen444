@@ -6,14 +6,36 @@
 
 {% block body %}
 <div class="formContainer">
+<script>
+    
+    function check(input) {
+        if (input.value != document.getElementById('password').value) {
+            document.getElementById('save').setAttribute("disabled","disabled");
+            document.getElementById('error').innerHTML = 'The New Passwords Do Not Match!';
+            $("#errorbox").show()
+        } else {
+            document.getElementById('error').innerHTML = '';
+            document.getElementById('save').removeAttribute("disabled");
+            $("#errorbox").hide()
+        }
+    }
+</script>
 <form action="/donorBilling">
     <div class="form-group">
         <br>
         <label for="">Account Information</label>
         <input type="email" class="form-control" id="emailInput" placeholder="Email" required>
+        <br> 
+
+        <div id="errorbox" hidden>
+        <div id="error" class="rightBox" style="color:red;"></div>
         <br>
+        <br>
+        <br>
+        </div>
+        
         <input type="password" class="form-control leftBox" id="password" placeholder="Password" required>
-        <input type="password" class="form-control rightBox" id="confirmPassword" placeholder="Confirm Password" required>
+        <input type="password" class="form-control rightBox" id="confirmPassword" placeholder="Confirm Password" oninput="check(this)" required>
         <br>
         <br>
         <br>
@@ -52,7 +74,7 @@
         </div>
 
         <a href="/selection"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
-        <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
+        <button class="btn btn-success rightBox formButtons" id="save" disabled><b>Submit</b></button>
 
     </div>
     </form>
