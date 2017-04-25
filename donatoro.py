@@ -84,7 +84,6 @@ def save_password():
 
 @app.route('/savePayment', methods = ['POST'])
 def save_payment():
-    print("HIT")
     addCreditCard("Johnny.Bravo@gmail.com", request.form["ccNum"], request.form["ccv"], request.form["expMonth"], request.form["expYear"], request.form["streetAddress1"], request.form["streetAddress2"], request.form["city"], request.form["state"], request.form["zip"])
     return redirect('../payment')
 
