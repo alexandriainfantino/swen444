@@ -16,13 +16,16 @@
             <div>
                 <div class="form-group centerContent">
                     <div class="cols-sm-10">
+                        {% if error1 != "" %}
+                            <div style="color:red;">{{error1}}</div>
+                        {% endif %}
                         <div class="input-group">
                             <span class="input-group-addon loginIcons"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
                             <input type="text" class="form-control" name="email" id="email"  placeholder="Email"/>
                         </div>
                         <br>
-                        {% if error != "" %}
-                            <div style="color:red;">{{error}}</div>
+                        {% if error2 != "" %}
+                            <div style="color:red;">{{error2}}</div>
                         {% endif %}
                         <div class="input-group">
                             <span class="input-group-addon loginIcons"><i class="fa fa-asterisk" aria-hidden="true"></i></span>

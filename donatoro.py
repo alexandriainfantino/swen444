@@ -114,19 +114,25 @@ def news_feed():
 
 @app.route('/')
 def log_in():
-    return render_template('logIn.jinja', error="")
+    return render_template('logIn.jinja', error1="",error2="")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user = getUserByEmail(request.form['email'])
-    if user["password"] == request.form['password']:
-        session['userId'] = user["id"]
-        if user["isDonor"] == 1:
-            return redirect('../newsFeed')
+    if user != None:
+        if user["password"] == request.form['password']:
+            session['userId'] = user["id"]
+            if user["isDonor"] == 1:
+                return redirect('../newsFeed')
+            else:
+                return redirect('../charity/admin')
         else:
-            return redirect('../charity/admin')
+            error1 = ""
+            error2 = "Password Does Not Match!"
     else:
-        return render_template('logIn.jinja', error="Password Does Not Match!")
+            error1 = "Email Not Found!"
+            error2 = ""
+    return render_template('logIn.jinja', error1=error1, error2=error2)
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
