@@ -37,7 +37,10 @@ def getUserById(userId):
 
 def getUserByEmail(email):
     user = query_db('select * from user where email=?', (email,)).fetchone()
-    return dict(id=user[0], password=user[2], email=user[1], isDonor=user[3])
+    if user != None:
+        return dict(id=user[0], password=user[2], email=user[1], isDonor=user[3])
+    else:
+        return user
 
 def getCreditCardByUserId(userId):
     return [dict(ccn=row[0], ccv=row[1], expMonth=row[2], expYear=row[3], streetAdd1 =row[4], streetAdd2=row[5], city=row[6],
