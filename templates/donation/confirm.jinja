@@ -38,7 +38,7 @@
             ${{ donation['amount'] }}
             <br>
             <br>
-            <button class="btn btn-grey leftBox formButtons" formaction="{{ url_for('donate', charity=donation['charity']) }}?searchQuery={{ query }}"><b>Back</b></button>
+            <button class="btn btn-grey leftBox formButtons" formaction="{{ url_for('donate', charity=donation['charity']) }}"><b>Back</b></button>
             <button class="btn btn-success rightBox formButtons" formaction={{ url_for('enter_donation')}}><b>Submit</b></button>
         </form>
     </div>
