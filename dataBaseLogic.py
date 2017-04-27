@@ -1,6 +1,7 @@
 from flask import Flask, g
 import sqlite3
 import os
+import datetime
 
 DATABASE = os.path.abspath(os.path.dirname(__file__)) + '/donatoro.sqlite'
 
@@ -110,6 +111,11 @@ def addCreditCard(email, cardNumber, ccv, exp_month, exp_year, streetAdd1, stree
     user = getUserByEmail(email)
     edit_db('INSERT INTO cc (ccn,ccv,expMonth,expYear,streetAdd1,streetAdd2,city,state,zip,userID) VALUES (?,?,?,?,?,?,?,?,?,?)', (cardNumber,ccv,exp_month,exp_year,streetAdd1,streetAdd2,city,state,zip,user["id"],))
 
+def addDonation(amount,cc,userID,charityID):
+    edit_db('INSERT INTO donation(amount,cc,userID,charityID,date) VALUES (?,?,?,?,?)',
+            (amount,cc,userID,charityID,datetime.datetime.now()))
+
 def getTags():
     return [dict(cahrity_id=row[0], tag=row[1], id=row[2]) for row in
             query_db('select * from tags').fetchall()]
+
