@@ -13,49 +13,49 @@ countries=["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola"
 
 @app.errorhandler(Exception)
 def exception_handler(e):
-    stack = traceback.format_exc()
-    return render_template('error.jinja', error=e, stack=stack),
+    if app.debug:
+        stack = traceback.format_exc()
+        return render_template('error-debug.jinja', error=e, stack=stack), 500
+    else:
+        return render_template()
 
+def render_template_logged_in(template, **context):
+    user = getUserById(session['userId'])
+    info = getInfoByUserId(session['userId'])
+    return render_template(template, user=user, userInfo=info, **context)
 
 @app.route('/profile', methods = ['GET', 'POST'])
 def profile():
     user = getUserById(session['userId'])
-    if user["isDonor"] == 1:        
-        info = getDonorInfoByUserId(session['userId'])
-        return render_template('DonorProfile/donorProfile.jinja', username=(info["firstName"]+" "+info["lastName"]), email=user["email"], address=info["streetAdd1"], address2=info["streetAdd2"], city=info["city"], state=info["state"], zipcode=info["zip"])
+    if user["isDonor"]:
+        return render_template_logged_in('DonorProfile/donorProfile.jinja')
     else:
-        info = getCharityInfoByUserId(session['userId'])
-        return render_template('CharityProfile/charityProfile.jinja', username=info["name"], email=user["email"], address=info["streetAdd"], city=info["city"], state=info["state"], zipcode=info["zip"], country=info["country"])
+        return render_template_logged_in('CharityProfile/charityProfile.jinja')
 
 @app.route('/personal')
 def edit_personal():
     user = getUserById(session['userId'])
-    if user["isDonor"] == 1:        
-        info = getDonorInfoByUserId(session['userId'])
-        return render_template('DonorProfile/donorPersonal.jinja', username=(info["firstName"]+" "+info["lastName"]), first_name=info["firstName"], last_name=info["lastName"], email=user["email"], address=info["streetAdd1"], address2=info["streetAdd2"], city=info["city"], state=info["state"], zipcode=info["zip"], states=states)
+    if user["isDonor"] == 1:
+        return render_template('DonorProfile/donorPersonal.jinja', states=states)
     else:
-        info = getCharityInfoByUserId(session['userId'])
-        return render_template('CharityProfile/charityPersonal.jinja', username=info["name"], email=user["email"], address=info["streetAdd"], city=info["city"], state=info["state"], zipcode=info["zip"], country=info["country"], states=states, countries=countries)
+        return render_template('CharityProfile/charityPersonal.jinja', states=states, countries=countries)
   
 @app.route('/password')
 def edit_password():
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])
-        return render_template('password.jinja', username=(info["firstName"]+" "+info["lastName"]), message="")
+        return render_template_logged_in('password.jinja', message="")
     else:
-        info = getCharityInfoByUserId(session['userId'])
-        return render_template('password.jinja', username=info["name"], message="")
+        return render_template_logged_in('password.jinja', message="")
 
 @app.route('/payment')
 def donor_edit_payment():
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])  
         cards = []      
         for card in getCreditCardByUserId(session['userId']):
             cards.append(dict(num=str(card["ccn"])[-4:],id=card["id"]))
-        return render_template('DonorProfile/donorPayment.jinja', username=(info["firstName"]+" "+info["lastName"]), cards=cards, states=states)
+        return render_template_logged_in('DonorProfile/donorPayment.jinja', cards=cards, states=states)
 
 
 #FORM ACTIONS  
@@ -77,11 +77,9 @@ def save_password():
         return redirect('../profile')
     else:
         if user["isDonor"] == 1:
-            info = getDonorInfoByUserId(session['userId'])
-            return render_template('password.jinja', username=(info["firstName"]+" "+info["lastName"]), message="Password Does Not Match Current Password!")
+            return render_template_logged_in('password.jinja', message="Password Does Not Match Current Password!")
         else:
-            info = getCharityInfoByUserId(session['userId'])
-            return render_template('password.jinja', username=info["name"], message="Password Does Not Match Current Password!")
+            return render_template_logged_in('password.jinja', message="Password Does Not Match Current Password!")
 
 @app.route('/savePayment', methods = ['POST'])
 def save_payment():
@@ -98,10 +96,9 @@ def remove_cards():
 
 @app.route('/charityHome/<charity>')
 def charity_home(charity):
-    userInfo = getDonorInfoByUserId(session['userId'])
-    info = getCharityInfoByName(charity)
+    charityInfo = getCharityInfoByName(charity)
     pics=['tree1.jpg','tree2.jpg','tree3.jpg','tree4.jpg']
-    return render_template('charityHome.jinja', username=(userInfo["firstName"]+" "+userInfo["lastName"]), charityName=info["name"], info=info["description"], pics=pics, message="")
+    return render_template_logged_in('charityHome.jinja', charityInfo=charityInfo, pics=pics, message="")
 
 @app.route('/newsFeed')
 def news_feed():
@@ -110,11 +107,11 @@ def news_feed():
     message=""
     for c in charities:
         news.append(getCharityPosts(c['charId']))
-    return render_template('newsFeed.jinja', username="Johnny Bravo", news = news[0], message=message)
+    return render_template_logged_in('newsFeed.jinja', news = news[0], message=message)
 
 @app.route('/')
 def log_in():
-    return render_template('logIn.jinja', error1="",error2="")
+    return render_template('logIn.jinja', error1="", error2="")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -141,28 +138,28 @@ def logout():
 
 @app.route('/selection')
 def selection():
-    return render_template('registration/selection.jinja')
+    return render_template_logged_in('registration/selection.jinja')
 
 @app.route('/charityRegistration1')
 def charityRegistrationOne():
-    return render_template('registration/charityRegistration/registrationPage1.jinja')
+    return render_template_logged_in('registration/charityRegistration/registrationPage1.jinja')
 
 @app.route('/charityRegistration2')
 def charityRegistration2():
-    return render_template('registration/charityRegistration/registrationPage2.jinja', states=states, countries=countries)
+    return render_template_logged_in('registration/charityRegistration/registrationPage2.jinja', states=states, countries=countries)
 
 @app.route('/charityConfirmation')
 def charityConfirmation():
     charityInformation = {"name":"Fake Charity", "501c":"123456789", "tags": "Environment", "email":"fakeCharity@fakeCharity.com", "billing": "1 Main St, Rochester, NY, 14623", "description":"This organization is aimed to plant 50,000 new trees every year, as well as replant trees in areas across the country affected by natural disasters. All trees planted will be native to the area they are planted in to avoid introducing invasive species."}
-    return render_template('registration/charityRegistration/confirmation.jinja', charityInfo = charityInformation)
+    return render_template_logged_in('registration/charityRegistration/confirmation.jinja', charityInfo = charityInformation)
 
 @app.route('/donorRegistration')
 def donorRegistration():
-    return render_template('registration/donorRegistration/donorRegistration.jinja', states=states)
+    return render_template_logged_in('registration/donorRegistration/donorRegistration.jinja', states=states)
 
 @app.route('/donorBilling')
 def donorBilling():
-    return render_template('registration/donorRegistration/donorBilling.jinja', states=states)
+    return render_template_logged_in('registration/donorRegistration/donorBilling.jinja', states=states)
 
 @app.route('/donationConfirmation/<charity>', methods=["POST"])
 def donationConfirmation(charity):
@@ -229,6 +226,7 @@ def donationConfirmation(charity):
         info = getDonorInfoByUserId(session['userId'])
     print donation['last4']
     return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation, query=search_term)
+
 
 @app.route('/donate/<charity>', methods=['GET', 'POST'])
 def donate(charity):
@@ -299,6 +297,7 @@ def donate(charity):
                 donation['amount']=""
 
     charityName = {'name':charity}
+
     return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=credit_cards, states=states, donation=donation, query=search_term)
 
 @app.route('/enterDonation', methods=['POST'])
@@ -318,13 +317,11 @@ def enter_donation():
 
 @app.route('/charity/admin')
 def charity_admin_welcome():
-    info = getCharityInfoByUserId(session['userId'])
-    return render_template('charity/charityAdminWelcome.jinja', username=info["name"])
+    return render_template_logged_in('charity/charityAdminWelcome.jinja')
 
 @app.route('/charity/stats')
 def charity_admin_stats():
-    info = getCharityInfoByUserId(session['userId'])
-    return render_template('charity/charityAdminStats.jinja', username=info["name"])
+    return render_template_logged_in('charity/charityAdminStats.jinja')
 
 @app.route('/results', methods=['GET'])
 def results():
@@ -333,6 +330,7 @@ def results():
     #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
     #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
     # ]
+
     #search_term = request.form['searchQuery']
     search_term = request.args['searchQuery']
     user = getUserById(session['userId'])
