@@ -14,28 +14,25 @@
 </head>
 <body>
     <div class="topnav">
-        {% if username != null %}
-            <a href="/newsFeed"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
-            <div class="dropdown username">
-                <button class="dropdown-toggle username" type="button" data-toggle="dropdown">{{username}}
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="../profile">My Profile</a></li>
-                    <li><a href="../logout">Sign Out</a></li>
-                </ul>
-            </div>
-            <!--<a href="" class="username">
-                {{ username }}
-                <i class="fa fa-caret-down" aria-hidden="true"></i>
-            </a>-->
+        <a href="/newsFeed"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
+        <div class="dropdown username">
+            {% if user["isDonor"] %}
+                <button class="dropdown-toggle username" type="button" data-toggle="dropdown">{{ userInfo["firstName"] }} {{ userInfo["lastName"] }}<span class="caret"></span></button>
+            {% else %}
+                <button class="dropdown-toggle username" type="button" data-toggle="dropdown">{{ userInfo["name"] }}<span class="caret"></span></button>
+            {% endif %}
+            <ul class="dropdown-menu">
+                <li><a href="../profile">My Profile</a></li>
+                <li><a href="../logout">Sign Out</a></li>
+            </ul>
+        </div>
+        {% if user["isDonor"] %}
             <div id="searchDiv">
                 <form class="navbar-form navbar-left" id="searchForm" role="search">
                     <button type="button" onclick="window.location='/results'" class="btn btn-default searchIcon"><span class="glyphicon glyphicon-search"></span></button>
                     <span><input type="text" class="form-control searchBar" placeholder="Search Charities..."></span>
                 </form>
             </div>
-        {% else %}
-            <a href="/"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
         {% endif %}
     </div>
 
