@@ -342,7 +342,7 @@ def results():
         search_tags = []
         for item in all_tags:
             if search_term in str(item['tag']):
-                search_tags.append(item['tag'].encode("ascii"))
+                search_tags.append(item['tag'])
         print search_tags
 
         search_results = []
