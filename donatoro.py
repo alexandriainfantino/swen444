@@ -7,6 +7,7 @@ import traceback
 app = Flask(__name__)
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+app.debug = True
 
 states=["Alabama" ,"Alaska" ,"Arizona" ,"Arkansas" ,"California" ,"Colorado","Connecticut","Delaware" ,"Florida","Georgia" ,"Hawaii" ,"Idaho","Illinois", "Indiana" ,"Iowa" ,"Kansas" ,"Kentucky" ,"Louisiana" ,"Maine" ,"Maryland" ,"Massachusetts" ,"Michigan" ,"Minnesota" ,"Mississippi" ,"Missouri" ,"Montana", "Nebraska" ,"Nevada" ,"New Hampshire" ,"New Jersey" ,"New Mexico" ,"New York" ,"North Carolina" ,"North Dakota" ,"Ohio" ,"Oklahoma" ,"Oregon","Pennsylvania", "Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin" ,"Wyoming"]
 countries=["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","The Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","People 's Republic of China","Republic of China","Christmas Island","Cocos(Keeling) Islands","Colombia","Comoros","Congo","Cook Islands","Costa Rica","Cote d'Ivoire","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","Gabon","The Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea - Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","North Korea","South Korea","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Nagorno - Karabakh","Namibia","Nauru","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Turkish Republic of Northern Cyprus","Northern Mariana","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn Islands","Poland","Portugal","Puerto Rico","Qatar","Romania","Russia","Rwanda","Saint Barthelemy","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Martin","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","Somaliland","South Africa","South Ossetia","Spain","Sri Lanka","Sudan","Suriname","Svalbard","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor - Leste","Togo","Tokelau","Tonga","Transnistria Pridnestrovie","Trinidad and Tobago","Tristan da Cunha","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","British Virgin Islands","Isle of Man","US Virgin Islands","Wallis and Futuna","Western Sahara","Yemen","Zambia","Zimbabwe"]
@@ -71,7 +72,6 @@ def save_personal():
 @app.route('/savePassword', methods = ['POST'])
 def save_password():
     user = getUserById(session['userId'])
-    print(request.form["oldpassword"]+" - "+user["password"])
     if request.form["oldpassword"] == user["password"]:
         editPassword(user["email"],request.form["newpassword"])
         return redirect('../profile')
@@ -184,7 +184,7 @@ def donationConfirmation(charity):
             donation['state'] = request.form['state']
         if "zip" in request.form:
             donation['zip'] = request.form['zip']
-         # Credit Card Info Submitted
+        # Credit Card Info Submitted
         if "ccNum" in request.form:
             donation['ccNum'] = request.form['ccNum']
             donation['last4'] = request.form['ccNum'][-4:]
@@ -219,20 +219,19 @@ def donationConfirmation(charity):
     if "amount" in request.form:
         donation['amount'] = request.form['amount']
     if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])
-    return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation, query=search_term)
+        info = getInfoByUserId(session['userId'])
+    return render_template_logged_in('donation/confirm.jinja', donation = donation, query=search_term)
+
 
 
 @app.route('/donate/<charity>', methods=['GET', 'POST'])
 def donate(charity):
     user = getUserById(session['userId'])
-   
     search_term = request.args['searchQuery']
 
     if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])
+        info = getInfoByUserId(session['userId'])
         credit_cards = getCreditCardByUserId(info['userId'])
-        
 
     donation = {}
     if request.method == 'POST':
@@ -292,7 +291,7 @@ def donate(charity):
 
     charityName = {'name':charity}
 
-    return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=credit_cards, states=states, donation=donation, query=search_term)
+    return render_template_logged_in('donation/donation.jinja', charity=charityName, creditCard=credit_cards, states=states, donation=donation, query=search_term)
 
 @app.route('/enterDonation', methods=['POST'])
 def enter_donation():
@@ -329,7 +328,7 @@ def results():
     search_term = request.args['searchQuery']
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])
+        info = getInfoByUserId(session['userId'])
         all_tags = getTags()
         search_tags = []
         for item in all_tags:
@@ -353,7 +352,8 @@ def results():
             if len(temp) != 0:
                 search_results.append(temp)
 
-        return render_template('searchResults.jinja', results=search_results, username=(info["firstName"] + " " + info["lastName"]), email=user["email"], query=search_term)
+        return render_template_logged_in('searchResults.jinja', results=search_results, query=search_term)
+
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
