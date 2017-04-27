@@ -105,6 +105,13 @@ def news_feed():
     charities = getDonorFavorites(session['userId'])
     news = []
     message=""
+    if session.get('message'):
+        print("HiT")
+        if session['message'] == 1:
+            message = "Thank you for registering! You have now been logged in!"
+        elif session['message'] == 2:
+            message = "Thank you for your donation!"
+        session.pop('message',None)
     for c in charities:
         news.append(getCharityPosts(c['charId']))
     return render_template_logged_in('newsFeed.jinja', news = news[0], message=message)
@@ -310,6 +317,7 @@ def enter_donation():
     expYear = request.form['expYear']
     amount = request.form['amount']
     charity = request.form['charity']
+    session['message'] = 2
     return redirect('/newsFeed')
 
 @app.route('/charity/admin')
