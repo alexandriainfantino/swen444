@@ -4,7 +4,7 @@
     width: 12%; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
-    top: 57px;
+    top: 64px;
     left: 0;
     background-color: #E0E0E0; /* White*/
     overflow-x: hidden; /* Disable horizontal scroll */

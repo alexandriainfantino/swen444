@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, g, session
 from dataBaseLogic import *
 import sys
+import ast
 import traceback
 
 app = Flask(__name__)
@@ -163,16 +164,157 @@ def donorRegistration():
 def donorBilling():
     return render_template('registration/donorRegistration/donorBilling.jinja', states=states)
 
-@app.route('/donationConfirmation')
-def donationConfirmation():
-    donation={'card':1234,'amount':100,'charity':'Electronic Frontier Foundation'}
-    return render_template('donation/confirm.jinja', username="Johnny Bravo", donation = donation)
+@app.route('/donationConfirmation/<charity>', methods=["POST"])
+def donationConfirmation(charity):
+    user = getUserById(session['userId'])
+    search_term = request.form['searchQuery']
+    donation = {'charity': charity}
+    if "radio" in request.form:
+        if request.form['radio'] == "new":
+            donation['radio'] = request.form['radio']
+        else:
+            donation['radio'] = "saved"
+    # User using a new card.
+    print "FORM", request.form
+    if request.form['radio'] == "new":
+        # Billing Location Info Submitted
+        if "streetAddress1" in request.form:
+            donation['streetAddress1'] = request.form['streetAddress1']
+        if "streetAddress2" in request.form:
+            donation['streetAddress2'] = request.form['streetAddress2']
+        if "city" in request.form:
+            donation['city'] = request.form['city']
+        if "state" in request.form:
+            donation['state'] = request.form['state']
+        if "zip" in request.form:
+            donation['zip'] = request.form['zip']
+        print "Filled in loc"
+        # Credit Card Info Submitted
+        if "ccNum" in request.form:
+            donation['ccNum'] = request.form['ccNum']
+            donation['last4'] = request.form['ccNum'][-4:]
+        if "ccv" in request.form:
+            donation['ccv'] = request.form['ccv']
+        if "expMonth" in request.form:
+            donation['expMonth'] = request.form['expMonth']
+        if "expYear" in request.form:
+            donation['expYear'] = request.form['expYear']
+        print "Filled in CC"
+    else:
+        ccInfo = ast.literal_eval(request.form['radio'])
+        print ccInfo
+        if "streetAdd1" in ccInfo:
+            donation['streetAddress1'] = ccInfo['streetAdd1']
+        if "streetAdd2" in ccInfo:
+            donation['streetAddress2'] = ccInfo['streetAdd2']
+        if "city" in ccInfo:
+            donation['city'] = ccInfo['city']
+        if "state" in ccInfo:
+            donation['state'] = ccInfo['state']
+        if "zip" in ccInfo:
+            donation['zip'] = ccInfo['zip']
+        # Credit Card Info Submitted
+        if "ccn" in ccInfo:
+            donation['ccNum'] = ccInfo['ccn']
+            donation['last4'] = str(ccInfo['ccn'])[-4:]
+        if "ccv" in ccInfo:
+            donation['ccv'] = ccInfo['ccv']
+        if "expMonth" in ccInfo:
+            donation['expMonth'] = ccInfo['expMonth']
+        if "expYear" in ccInfo:
+            donation['expYear'] = ccInfo['expYear']
+    if "amount" in request.form:
+        donation['amount'] = request.form['amount']
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(session['userId'])
+    print donation['last4']
+    return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation, query=search_term)
 
-@app.route('/donate/<charity>')
+@app.route('/donate/<charity>', methods=['GET', 'POST'])
 def donate(charity):
-    creditCard = {'last4':1234}
+    user = getUserById(session['userId'])
+    print "1"
+    search_term = request.args['searchQuery']
+
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(session['userId'])
+        credit_cards = getCreditCardByUserId(info['userId'])
+        for card in credit_cards:
+            print card
+
+    donation = {}
+    if request.method == 'POST':
+        if 'radio' in request.form:
+            # Going back from confirmation page to donate page, after filling in new credit card.
+            if request.form['radio'] == "new":
+                donation['radio'] = "new"
+                if "streetAddress1" in request.form:
+                    donation['streetAddress1'] = request.form['streetAddress1']
+                else:
+                    donation['streetAddress1']=""
+                if "streetAddress2" in request.form:
+                    donation['streetAddress2'] = request.form['streetAddress2']
+                else:
+                    donation['streetAddress2']=""
+                if "city" in request.form:
+                    donation['city'] = request.form['city']
+                else:
+                    donation['city']=""
+                if "state" in request.form:
+                    donation['state'] = request.form['state']
+                else:
+                    donation['state']=""
+                if "zip" in request.form:
+                    donation['zip'] = request.form['zip']
+                else:
+                    donation['zip']=""
+                # Credit Card Info Submitted
+                if "ccNum" in request.form:
+                    donation['ccNum'] = request.form['ccNum']
+                    donation['last4'] = request.form['ccNum'][-4:]
+                else:
+                    donation['ccNum']=""
+                    donation['last4'] = ""
+                if "ccv" in request.form:
+                    donation['ccv'] = request.form['ccv']
+                else:
+                    donation['ccv']=""
+                if "expMonth" in request.form:
+                    donation['expMonth'] = request.form['expMonth']
+                else:
+                    donation['expMonth']=""
+                if "expYear" in request.form:
+                    donation['expYear'] = request.form['expYear']
+                else:
+                    donation['expYear']=""
+            if "ccNum" in request.form:
+                donation['ccNum'] = request.form['ccNum']
+                donation['last4'] = request.form['ccNum'][-4:]
+            else:
+                donation['ccNum'] = ""
+                donation['last4'] = ""
+            if "amount" in request.form:
+                donation['amount'] = request.form['amount']
+            else:
+                donation['amount']=""
+
     charityName = {'name':charity}
-    return render_template('donation/donation.jinja', username="Johnny Bravo", charity=charityName, creditCard=creditCard, states=states)
+    return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=credit_cards, states=states, donation=donation, query=search_term)
+
+@app.route('/enterDonation', methods=['POST'])
+def enter_donation():
+    addr1 = request.form['streetAddress1']
+    addr2 = request.form['streetAddress2']
+    city = request.form['city']
+    state = request.form['state']
+    zip = request.form['zip']
+    ccNum = request.form['ccNum']
+    ccv = request.form['ccv']
+    expMonth = request.form['expMonth']
+    expYear = request.form['expYear']
+    amount = request.form['amount']
+    charity = request.form['charity']
+    return redirect('/newsFeed')
 
 @app.route('/charity/admin')
 def charity_admin_welcome():
@@ -184,27 +326,44 @@ def charity_admin_stats():
     info = getCharityInfoByUserId(session['userId'])
     return render_template('charity/charityAdminStats.jinja', username=info["name"])
 
-@app.route('/results')
+@app.route('/results', methods=['GET'])
 def results():
     # results = [
     #     {'Title':'Electronic Frontier Foundation','Description':'EFF'}
     #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
     #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
     # ]
-    search_results = [
-        [
-            {'Title':'Electronic Frontier Foundation','Description':'EFF'},
-            {'Title': 'Canonical', 'Description': 'Creators of Ubuntu'}
-        ],
-        [
-            {'Title':'Planned Parenthood','Description':'Good for people'},
-            {'Title':'RITGA','Description':'Also Good For people'}
-        ],
-        [
-            {'Title':'Test Charity', 'Description':'Test Description'}
-        ]
-    ]
-    return render_template('searchResults.jinja', results=search_results)
+    #search_term = request.form['searchQuery']
+    search_term = request.args['searchQuery']
+    user = getUserById(session['userId'])
+    if user["isDonor"] == 1:
+        info = getDonorInfoByUserId(session['userId'])
+        all_tags = getTags()
+        search_tags = []
+        for item in all_tags:
+            if search_term in str(item['tag']):
+                search_tags.append(item['tag'])
+        print search_tags
+
+        search_results = []
+        counter = 0
+        temp = []
+        for tag in search_tags:
+            for item in getCharitiesByTags(tag):
+                temp.append(
+                    {'Description':item['description'],
+                     'Title':item['name']
+                     }
+                )
+                counter+=1
+                if counter%2 ==0:
+                    search_results.append(temp)
+                    temp = []
+            if len(temp) != 0:
+                search_results.append(temp)
+
+        print search_term
+        return render_template('searchResults.jinja', results=search_results, username=(info["firstName"] + " " + info["lastName"]), email=user["email"], query=search_term)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True

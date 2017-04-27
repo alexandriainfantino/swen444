@@ -9,68 +9,73 @@
         <br>
         <label for="">{{ charity['name'] }} - Payment</label>
         <br>
-        <span class="left">
-            <input type="radio" name="radio" value="new"> Use New Card
-        </span>
-        <span class="right">
-            <input type="checkbox" name="Save" value="saved"> Save This Card
-        </span>
-        <br>
-        <br>
-        <input type="text" class="form-control" id="ccNum" placeholder="Credit Card Number">
-        <br>
-        <div class='row'>
-            <div class='col-sm-4'>
-                <div class='form-group'>
-                    <input class="form-control" id="ccv" size="30" type="text" placeholder="CCV"/>
+        <form method='post'>
+            <input type="hidden" name="searchQuery" value="{{ query }}">
+            <span class="left">
+                <input type="radio" name="radio" value="new" {% if donation['radio']=="new" %} checked="checked" {% endif %}> Use New Card
+            </span>
+            <span class="right">
+                <input type="checkbox" name="Save" value="saved"> Save This Card
+            </span>
+            <br>
+            <br>
+            <input type="text" class="form-control" id="ccNum" name="ccNum" placeholder="Credit Card Number" {% if donation['radio']=='new' %}value="{{ donation['ccNum'] }}" {%  endif %}>
+            <br>
+            <div class='row'>
+                <div class='col-sm-4'>
+                    <div class='form-group'>
+                        <input class="form-control" id="ccv" name="ccv" size="30" type="text" placeholder="CCV" value="{{ donation['ccv'] }}"/>
+                    </div>
+                </div>
+                <div class='col-sm-4'>
+                    <div class='form-group'>
+                        <input class="form-control" id="expMonth" name="expMonth" size="30" type="number" placeholder="Exp. Month" value="{{ donation['expMonth'] }}"/>
+                    </div>
+                </div>
+                <div class='col-sm-4'>
+                    <div class='form-group'>
+                        <input class="form-control" id="Exp. Year" name="expYear" size="30" type="number" placeholder="Exp. Year" value="{{ donation['expYear'] }}"/>
+                    </div>
                 </div>
             </div>
-            <div class='col-sm-4'>
-                <div class='form-group'>
-                    <input class="form-control" id="expMonth" size="30" type="number" placeholder="Exp. Month"/>
+            <input type="text" class="form-control" id="streetAddress1" name="streetAddress1" placeholder="Billing Street Line 1" value="{{ donation['streetAddress1'] }}">
+            <br>
+            <input type="text" class="form-control" id="streetAddress2" name="streetAddress2" placeholder="Billing Street Line 2" value="{{ donation['streetAddress2'] }}">
+            <br>
+            <div class='row'>
+                <div class='col-sm-4'>
+                    <div class='form-group'>
+                        <input class="form-control" id="city" name="city" size="30" type="text" placeholder="City" value="{{ donation['city'] }}"/>
+                    </div>
+                </div>
+                <div class='col-sm-4'>
+                    <div class='form-group'>
+                         <select class="form-control" name="state" value="{{ donation['state'] }}">
+                            <option selected disabled>State</option>
+                            {% for n in states %}
+                                <option>{{n}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class='col-sm-4'>
+                    <div class='form-group'>
+                        <input class="form-control" id="zip" name="zip" size="30" type="number" placeholder="Zip Code" value="{{ donation['zip'] }}"/>
+                    </div>
                 </div>
             </div>
-            <div class='col-sm-4'>
-                <div class='form-group'>
-                    <input class="form-control" id="Exp. Year" size="30" type="number" placeholder="Exp. Year"/>
-                </div>
-            </div>
-        </div>
-        <input type="text" class="form-control" id="streetAddress1" placeholder="Billing Street Line 1">
-        <br>
-        <input type="text" class="form-control" id="streetAddress2" placeholder="Billing Street Line 2">
-        <br>
-        <div class='row'>
-            <div class='col-sm-4'>
-                <div class='form-group'>
-                    <input class="form-control" id="city" size="30" type="text" placeholder="City"/>
-                </div>
-            </div>
-            <div class='col-sm-4'>
-                <div class='form-group'>
-                     <select class="form-control" name="state">
-                        <option selected disabled>State</option>
-                        {% for n in states %}
-                            <option>{{n}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class='col-sm-4'>
-                <div class='form-group'>
-                    <input class="form-control" id="zip" size="30" type="number" placeholder="Zip Code"/>
-                </div>
-            </div>
-        </div>
-        <br>
-        <input type="radio" name="radio" value="saved"> Use Card Ending In {{ creditCard['last4'] }}
-        <br>
-        <br>
-        <input type="text" class="form-control" id="amount" placeholder="Amount">
-        <br>
-        <br>
-        <button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button>
-        <a href="/donationConfirmation"><button type="button" class="btn btn-success rightBox formButtons"><b>Submit</b></button></a>
+            <br>
+            {% for number in creditCard %}
+                <input type="radio" name="radio" value="{{ number }}" {% if number['ccn']|string== donation['ccNum']|string %} checked="checked" {% endif %}> Use Card Ending In {{ (number['ccn']|string)[-4:] }}
+                <br>
+            {% endfor %}
+            <br>
+            <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{ donation['amount'] }}">
+            <br>
+            <br>
+            <a class="btn btn-grey leftBox formButtons" href="{{ url_for('results') }}?searchQuery={{ query }}"><b>Back</b></a>
+            <button type="submit" class="btn btn-success rightBox formButtons" formaction="{{ url_for('donationConfirmation', charity=charity['name']) }}?searchQuery={{ query }}"><b>Submit</b></button>
+        </form>
     </div>
 </div>
 {% endblock %}

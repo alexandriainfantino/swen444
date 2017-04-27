@@ -112,3 +112,7 @@ def addCreditCard(email, cardNumber, ccv, exp_month, exp_year, streetAdd1, stree
 def addDonation(amount,cc,userID,charityID):
     edit_db('INSERT INTO donation(amount,cc,userID,charityID,date) VALUES (?,?,?,?,?)',
             (amount,cc,userID,charityID,datetime.datetime.now()))
+
+def getTags():
+    return [dict(cahrity_id=row[0], tag=row[1], id=row[2]) for row in
+            query_db('select * from tags').fetchall()]
