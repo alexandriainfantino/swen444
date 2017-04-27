@@ -223,6 +223,7 @@ def donationConfirmation(charity):
     return render_template_logged_in('donation/confirm.jinja', donation = donation, query=search_term)
 
 
+
 @app.route('/donate/<charity>', methods=['GET', 'POST'])
 def donate(charity):
     user = getUserById(session['userId'])
@@ -352,6 +353,7 @@ def results():
                 search_results.append(temp)
 
         return render_template_logged_in('searchResults.jinja', results=search_results, query=search_term)
+
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True

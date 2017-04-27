@@ -10,23 +10,23 @@
             Profile
         </div>
         <b>Name:</b>
-        {{username}}
+        {{userInfo["name"]}}
         <br>
         <b>Email:</b>
-        {{email}}
+        {{user["email"]}}
         <br>
         <b>Address:</b>
-        {{address}}
+        {{userInfo["streetAdd"]}}
         <br>
-        <b>City:</b>
-        {{city}}
-        <b>State:</b>
-        {{state}}
-        <b>Zipcode:</b>
-        {{zipcode}}
+        <b>City:</b>        
+        {{userInfo["city"]}}
+        <b>State:</b>        
+        {{userInfo["state"]}}
+        <b>Zipcode:</b>        
+        {{userInfo["zip"]}}
         <br>
         <b>Country:</b>
-        {{country}}
+        {{userInfo["country"]}}
         <br>
         <br>
         <button class="btn btn-success profileButtons" onClick="location.href='../personal'" >Edit Personal Info</button>
