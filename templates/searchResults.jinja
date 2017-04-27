@@ -25,7 +25,7 @@
         <tr>
             {% for charity in list %}
             <td>
-                <a href="{{ url_for('donate', charity=charity['Title']) }}?searchQuery={{ query }}">
+                <a href="/charityHome/{{ charity['Title'] }}">
 {#                    <input type="hidden" name="searchQuery" value="{{ query }}">#}
                         <div class="box">
                             <h2>{{ charity['Title'] }}</h2>

@@ -73,8 +73,8 @@
             <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{ donation['amount'] }}">
             <br>
             <br>
-            <a class="btn btn-grey leftBox formButtons" href="{{ url_for('results') }}?searchQuery={{ query }}"><b>Back</b></a>
-            <button type="submit" class="btn btn-success rightBox formButtons" formaction="{{ url_for('donationConfirmation', charity=charity['name']) }}?searchQuery={{ query }}"><b>Submit</b></button>
+            <a class="btn btn-grey leftBox formButtons" href="/charityHome/{{ charity['name'] }}"><b>Back</b></a>
+            <button type="submit" class="btn btn-success rightBox formButtons" formaction="{{ url_for('donationConfirmation', charity=charity['name']) }}"><b>Submit</b></button>
         </form>
     </div>
 </div>

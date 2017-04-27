@@ -164,7 +164,9 @@ def donorBilling():
 @app.route('/donationConfirmation/<charity>', methods=["POST"])
 def donationConfirmation(charity):
     user = getUserById(session['userId'])
-    search_term = request.form['searchQuery']
+    search_term = ""
+    if 'searchQuery' in request.args:
+        search_term = request.args['searchQuery']
     donation = {'charity': charity}
     if "radio" in request.form:
         if request.form['radio'] == "new":
@@ -226,7 +228,9 @@ def donationConfirmation(charity):
 @app.route('/donate/<charity>', methods=['GET', 'POST'])
 def donate(charity):
     user = getUserById(session['userId'])
-    search_term = request.args['searchQuery']
+    search_term = ""
+    if 'searchQuery' in request.args:
+        search_term = request.args['searchQuery']
 
     if user["isDonor"] == 1:
         info = getInfoByUserId(session['userId'])
@@ -324,7 +328,9 @@ def results():
     # ]
 
     #search_term = request.form['searchQuery']
-    search_term = request.args['searchQuery']
+    search_term = ""
+    if 'searchQuery' in request.args:
+        search_term = request.args['searchQuery']
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
         info = getInfoByUserId(session['userId'])
