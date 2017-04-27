@@ -58,15 +58,17 @@ def getCharityInfoByName(name):
     return dict(name=charity[0], identificationNum=charity[1], description=charity[2], streetAdd = charity[3],
                  city=charity[4], state=charity[5], zip=charity[6], country=charity[7], userId=charity[8], charId=charity[9])
 
-def getCharityInfoByUserId(userId):
-    charity = query_db('select * from charity_info where userID=?', (userId,)).fetchone()
-    return dict(name=charity[0], identificationNum=charity[1], description=charity[2], streetAdd = charity[3],
-                 city=charity[4], state=charity[5], zip=charity[6], country=charity[7], userId=charity[8], charId=charity[9])
-
-def getDonorInfoByUserId(userId):
-    donor = query_db('select * from donor_info where userID=?', (userId,)).fetchone()
-    return dict(firstName=donor[0], lastName=donor[1], streetAdd1=donor[2], streetAdd2=donor[3],
+def getInfoByUserId(userId):
+    user = getUserById(userId)
+    if user["isDonor"]:
+        donor = query_db('select * from donor_info where userID=?', (userId,)).fetchone()
+        return dict(firstName=donor[0], lastName=donor[1], streetAdd1=donor[2], streetAdd2=donor[3],
                     city=donor[4], state=donor[5], zip=donor[6], userId=donor[7])
+    else:
+        charity = query_db('select * from charity_info where userID=?', (userId,)).fetchone()
+        return dict(name=charity[0], identificationNum=charity[1], description=charity[2], streetAdd=charity[3],
+                    city=charity[4], state=charity[5], zip=charity[6], country=charity[7], userId=charity[8],
+                    charId=charity[9])
 
 def getDonorFavorites(userId):
     return [dict(name=row[0], identificationNum=row[1], description=row[2], streetAdd = row[3],
@@ -112,3 +114,8 @@ def addCreditCard(email, cardNumber, ccv, exp_month, exp_year, streetAdd1, stree
 def addDonation(amount,cc,userID,charityID):
     edit_db('INSERT INTO donation(amount,cc,userID,charityID,date) VALUES (?,?,?,?,?)',
             (amount,cc,userID,charityID,datetime.datetime.now()))
+
+def getTags():
+    return [dict(cahrity_id=row[0], tag=row[1], id=row[2]) for row in
+            query_db('select * from tags').fetchall()]
+

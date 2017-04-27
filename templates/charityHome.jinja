@@ -27,10 +27,10 @@
     {% endif %}
 
     <div class="profileTitle">
-        {{charityName}}
+        {{charityInfo["name"]}}
     </div>
     <div class="info">
-        {{info}}
+        {{charityInfo["description"]}}
     </div>
     <br>
     <label>Images</label> 
@@ -41,12 +41,11 @@
                 <td><img src="{{ url_for('static', filename=n) }}" class="picture"/></td>
             {% endfor %}
             <td>
-                <button class="btn btn-success homeButtons" onClick="location.href='../donate/{{charityName}}'" ><b>Donate</b></button>
+                <button class="btn btn-success homeButtons" onClick="location.href='../donate/{{charityInfo["name"]}}'" ><b>Donate</b></button>
                 <br>
                 <br>                
-                <button class="btn btn-purple homeButtons" onClick="location.href='../follow/{{charityName}}'" disabled><b>Follow</b></button>
+                <button class="btn btn-purple homeButtons" onClick="location.href='../follow/{{charityInfo["name"]}}'" disabled><b>Follow</b></button>
             </td>
-        </div>
         </tr>
     </table>
 </div>
