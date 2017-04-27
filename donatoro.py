@@ -37,9 +37,9 @@ def profile():
 def edit_personal():
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
-        return render_template('DonorProfile/donorPersonal.jinja', states=states)
+        return render_template_logged_in('DonorProfile/donorPersonal.jinja', states=states)
     else:
-        return render_template('CharityProfile/charityPersonal.jinja', states=states, countries=countries)
+        return render_template_logged_in('CharityProfile/charityPersonal.jinja', states=states, countries=countries)
   
 @app.route('/password')
 def edit_password():
@@ -224,9 +224,9 @@ def donationConfirmation(charity):
     if "amount" in request.form:
         donation['amount'] = request.form['amount']
     if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])
+        info = getInfoByUserId(session['userId'])
     print donation['last4']
-    return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation, query=search_term)
+    return render_template_logged_in('donation/confirm.jinja', donation = donation, query=search_term)
 
 
 @app.route('/donate/<charity>', methods=['GET', 'POST'])
@@ -236,7 +236,7 @@ def donate(charity):
     search_term = request.args['searchQuery']
 
     if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])
+        info = getInfoByUserId(session['userId'])
         credit_cards = getCreditCardByUserId(info['userId'])
         for card in credit_cards:
             print card
@@ -299,7 +299,7 @@ def donate(charity):
 
     charityName = {'name':charity}
 
-    return render_template('donation/donation.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], charity=charityName, creditCard=credit_cards, states=states, donation=donation, query=search_term)
+    return render_template_logged_in('donation/donation.jinja', charity=charityName, creditCard=credit_cards, states=states, donation=donation, query=search_term)
 
 @app.route('/enterDonation', methods=['POST'])
 def enter_donation():
@@ -336,7 +336,7 @@ def results():
     search_term = request.args['searchQuery']
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
-        info = getDonorInfoByUserId(session['userId'])
+        info = getInfoByUserId(session['userId'])
         all_tags = getTags()
         search_tags = []
         for item in all_tags:
@@ -362,7 +362,7 @@ def results():
                 search_results.append(temp)
 
         print search_term
-        return render_template('searchResults.jinja', results=search_results, username=(info["firstName"] + " " + info["lastName"]), email=user["email"], query=search_term)
+        return render_template_logged_in('searchResults.jinja', results=search_results, query=search_term)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
