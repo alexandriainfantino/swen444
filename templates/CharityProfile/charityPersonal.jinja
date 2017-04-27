@@ -11,21 +11,21 @@
         <label class="profileTitle">Profile - Personal Info</label>        
         <form action="../savePersonal" method="post">
         <br>
-        <input type="email" class="form-control" name="emailInput" placeholder="Email" value="{{email}}"/>
+        <input type="email" class="form-control" name="emailInput" placeholder="Email" value="{{user["email"]}}"/>
         <br>
-        <input type="text" class="form-control" name="streetAddress1" placeholder="Street Address Line 1" value="{{address}}"/>
+        <input type="text" class="form-control" name="streetAddress1" placeholder="Street Address Line 1" value="{{userInfo["streetAdd"]}}"/>
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" name="city" size="30" type="text" placeholder="City" value="{{city}}"/>
+                    <input class="form-control" name="city" size="30" type="text" placeholder="City" value="{{userInfo["city"]}}"/>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
                     <select class="form-control" name="state">
                        {% for n in states %}
-                            {% if n == state %}
+                            {% if n == userInfo["state"] %}
                                 <option selected>{{n}}</option>
                             {% else %}                            
                                 <option>{{n}}</option>
@@ -36,13 +36,13 @@
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" name="zip" size="30" type="number" placeholder="Zip Codes" value="{{zipcode}}"/>
+                    <input class="form-control" name="zip" size="30" type="number" placeholder="Zip Codes" value="{{userInfo["zip"]}}"/>
                 </div>
             </div>
         </div>
         <select class="form-control" name="country">
            {% for n in countries %}
-                {% if n == country %}
+                {% if n == userInfo["country"] %}
                     <option selected>{{n}}</option>
                 {% else %}                            
                     <option>{{n}}</option>

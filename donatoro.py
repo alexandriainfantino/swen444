@@ -36,9 +36,9 @@ def profile():
 def edit_personal():
     user = getUserById(session['userId'])
     if user["isDonor"] == 1:
-        return render_template('DonorProfile/donorPersonal.jinja', states=states)
+        return render_template_logged_in('DonorProfile/donorPersonal.jinja', states=states)
     else:
-        return render_template('CharityProfile/charityPersonal.jinja', states=states, countries=countries)
+        return render_template_logged_in('CharityProfile/charityPersonal.jinja', states=states, countries=countries)
   
 @app.route('/password')
 def edit_password():
@@ -172,7 +172,6 @@ def donationConfirmation(charity):
         else:
             donation['radio'] = "saved"
     # User using a new card.
-    print "FORM", request.form
     if request.form['radio'] == "new":
         # Billing Location Info Submitted
         if "streetAddress1" in request.form:
@@ -185,8 +184,7 @@ def donationConfirmation(charity):
             donation['state'] = request.form['state']
         if "zip" in request.form:
             donation['zip'] = request.form['zip']
-        print "Filled in loc"
-        # Credit Card Info Submitted
+         # Credit Card Info Submitted
         if "ccNum" in request.form:
             donation['ccNum'] = request.form['ccNum']
             donation['last4'] = request.form['ccNum'][-4:]
@@ -196,10 +194,8 @@ def donationConfirmation(charity):
             donation['expMonth'] = request.form['expMonth']
         if "expYear" in request.form:
             donation['expYear'] = request.form['expYear']
-        print "Filled in CC"
     else:
         ccInfo = ast.literal_eval(request.form['radio'])
-        print ccInfo
         if "streetAdd1" in ccInfo:
             donation['streetAddress1'] = ccInfo['streetAdd1']
         if "streetAdd2" in ccInfo:
@@ -224,21 +220,19 @@ def donationConfirmation(charity):
         donation['amount'] = request.form['amount']
     if user["isDonor"] == 1:
         info = getDonorInfoByUserId(session['userId'])
-    print donation['last4']
     return render_template('donation/confirm.jinja', username=(info["firstName"] + " " + info["lastName"]), email=user["email"], donation = donation, query=search_term)
 
 
 @app.route('/donate/<charity>', methods=['GET', 'POST'])
 def donate(charity):
     user = getUserById(session['userId'])
-    print "1"
+   
     search_term = request.args['searchQuery']
 
     if user["isDonor"] == 1:
         info = getDonorInfoByUserId(session['userId'])
         credit_cards = getCreditCardByUserId(info['userId'])
-        for card in credit_cards:
-            print card
+        
 
     donation = {}
     if request.method == 'POST':
@@ -341,7 +335,6 @@ def results():
         for item in all_tags:
             if search_term in str(item['tag']):
                 search_tags.append(item['tag'])
-        print search_tags
 
         search_results = []
         counter = 0
@@ -360,7 +353,6 @@ def results():
             if len(temp) != 0:
                 search_results.append(temp)
 
-        print search_term
         return render_template('searchResults.jinja', results=search_results, username=(info["firstName"] + " " + info["lastName"]), email=user["email"], query=search_term)
 
 if __name__ == '__main__':
