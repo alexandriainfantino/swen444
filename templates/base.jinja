@@ -14,7 +14,15 @@
 </head>
 <body>
     <div class="topnav">
+        {% if user and user["isDonor"] %}
         <a href="/newsFeed"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
+        {% elif user and not user["isDonor"] %}
+        <a href="/charity/admin"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
+        {% else %}
+        <a href="/"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
+        {% endif %}
+
+        {% if user %}
         <div class="dropdown username">
             {% if user["isDonor"] %}
                 <button class="dropdown-toggle username" type="button" data-toggle="dropdown">{{ userInfo["firstName"] }} {{ userInfo["lastName"] }}<span class="caret"></span></button>
@@ -33,6 +41,7 @@
                     <span><input type="text" class="form-control searchBar" name="searchQuery" placeholder="Search Charities..."></span>
                 </form>
             </div>
+        {% endif %}
         {% endif %}
     </div>
 
