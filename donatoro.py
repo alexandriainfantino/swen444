@@ -372,6 +372,6 @@ def results():
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     if len(sys.argv) > 1:
-        app.run(host='0.0.0.0', port=sys.argv[1])
+        app.run(host='0.0.0.0', port=int(sys.argv[1]))
     else:
         app.run()
