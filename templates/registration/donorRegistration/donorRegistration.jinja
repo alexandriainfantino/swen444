@@ -26,7 +26,7 @@
         <br>
         <label for="">Account Information</label>
         <input type="email" class="form-control" placeholder="Email" required name="email"
-                {% if session.get('email') != None %} value ="{{ session['email'] }}"{% endif %}>
+                {% if session.get('email') != None %} value ="{{ session.get('email') }}"{% endif %}>
         <br> 
 
         <div id="errorbox" hidden>
@@ -41,23 +41,23 @@
         <br>
         <br>
         <input type="text" class="form-control leftBox" placeholder="First Name" required name="fname"
-                {% if session.get('firstName') != None %} value ="{{ session['firstName'] }}"{% endif %}>
+                {% if session.get('firstName') != None %} value ="{{ session.get('firstName') }}"{% endif %}>
         <input type="text" class="form-control rightBox" placeholder="Last Name" required name="lname"
-                {% if session.get('lastName') != None %} value ="{{ session['lastName'] }}"{% endif %}>
+                {% if session.get('lastName') != None %} value ="{{ session.get('lastName') }}"{% endif %}>
         <br>
         <br>
         <br>
         <input type="text" class="form-control" placeholder="Street Address Line 1" required name="addr1"
-                {% if session.get('streetAddress1') != None %} value ="{{ session['streetAddress1'] }}"{% endif %}>
+                {% if session.get('streetAddress1') != None %} value ="{{ session.get('streetAddress1') }}"{% endif %}>
         <br>
         <input type="text" class="form-control descriptionBox" placeholder="Street Address Line 2" name="addr2"
-                {% if session.get('streetAddress2') != None %} value ="{{ session['streetAddress2'] }}"{% endif %}>
+                {% if session.get('streetAddress2') != None %} value ="{{ session.get('streetAddress2') }}"{% endif %}>
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
                     <input class="form-control" size="30" type="text" placeholder="City" required name="city"
-                            {% if session.get('city') != None %} value ="{{ session['city'] }}"{% endif %} />
+                            {% if session.get('city') != None %} value ="{{ session.get('city') }}"{% endif %} />
                 </div>
             </div>
             <div class='col-sm-4'>
@@ -83,7 +83,7 @@
                     <input class="form-control" size="5" type="text" pattern="[0-9]{5}" placeholder="Zip Code"
                            required oninvalid="this.setCustomValidity('Please enter a valid 5 digit zip code')"
                            oninput="setCustomValidity('')" name="zip"
-                            {% if session.get('zip') != None %} value ="{{ session['zip'] }}"{% endif %} />
+                            {% if session.get('zip') != None %} value ="{{ session.get('zip') }}"{% endif %} />
                 </div>
             </div>
         </div>

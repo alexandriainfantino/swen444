@@ -24,7 +24,7 @@
         <br>
         <label for="">Login Info</label>
         <input type="email" class="form-control" name="email" placeholder="Charity Email"
-                {% if session.get('email') != None %} value ="{{ session['email'] }}"{% endif %} required>
+                {% if session.get('email') != None %} value ="{{ session.get('email') }}"{% endif %} required>
         <br>
         <div id="errorbox" hidden>
         <div id="error" class="rightBox" style="color:red;"></div>
@@ -39,17 +39,17 @@
         <label for="">Public Information</label>
         <br>
         <input type="text" class="form-control leftBox" name="charityName" placeholder="Charity Name"
-                {% if session.get('charityName') != None %} value ="{{ session['charityName'] }}"{% endif %} required>
+                {% if session.get('charityName') != None %} value ="{{ session.get('charityName') }}"{% endif %} required>
         <input type="text" class="form-control rightBox" name="501c" placeholder="IRS 501c"
-                {% if session.get('501c') != None %} value ="{{ session['501c'] }}"{% endif %} required>
+                {% if session.get('501c') != None %} value ="{{ session.get('501c') }}"{% endif %} required>
         <br>
         <br>
         <br>
         <input type="text" class="form-control" name="tags" placeholder="Charity Tags Separated by Spaces"
-                {% if session.get('tags') != None %} value ="{{ session['tags'] }}"{% endif %} required>
+                {% if session.get('tags') != None %} value ="{{ session.get('tags') }}"{% endif %} required>
         <br>
         <input type="text" class="form-control descriptionBox" name="description" placeholder="Charity Description"
-                {% if session.get('description') != None %} value ="{{ session['description'] }}"{% endif %} required>
+                {% if session.get('description') != None %} value ="{{ session.get('description') }}"{% endif %} required>
         <br>
 
         <a href="/selection"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
