@@ -11,19 +11,24 @@
         <br>
         <label for="">Is this information correct?</label>
         <br>
-        <input type="text" class="form-control leftBox" id="charityName" value="Charity Name: {{ charityInfo['name'] }}" readonly>
-        <input type="text" class="form-control rightBox" id="501c" value="IRS 501c: {{ charityInfo['501c'] }}" readonly>
+        <input type="text" class="form-control leftBox" id="charityName" value="Charity Name:
+{% if session.get('charityName') != None %} {{ session['charityName'] }}{% endif %}" readonly>
+        <input type="text" class="form-control rightBox" id="501c" value="IRS 501c:
+{% if session.get('501c') != None %} {{ session['501c'] }}{% endif %}" readonly>
         <br>
         <br>
         <br>
-        <input type="text" class="form-control" id="tags" value="Charity Tags: {{ charityInfo['tags'] }}" readonly>
+        <input type="text" class="form-control" id="tags" value="Charity Tags:
+{% if session.get('tags') != None %} {{ session['tags'] }}{% endif %}" readonly>
         <br>
-        <input type="text" class="form-control" id="email" value="Charity Email: {{ charityInfo['email'] }}" readonly>
+        <input type="text" class="form-control" id="email" value="Charity Email:
+{% if session.get('email') != None %} {{ session['email'] }}{% endif %}" readonly>
         <br>
         <input type="text" class="form-control" id="address"
-               value="Billing Information:{% for b in charityInfo['billing'] %} {{ b }}{% if not loop.last %},{% endif %}{% endfor %}" readonly>
+               value="Billing Information:{% if session.get('charityName') != None %}{% for b in charityInfo['billing'] %}{{ b }}{% if not loop.last %},{% endif %}{% endfor %}{% endif %}" readonly>
         <br>
-        <textarea class="form-control" id="description" rows="6" readonly>Charity Description: {{ charityInfo['description'] }}</textarea>
+        <textarea class="form-control" id="description" rows="6" readonly>Charity Description:
+            {% if session.get('description') != None %} {{ session['description'] }}{% endif %}</textarea>
         <br>
 </form>
         <a href="/charityRegistration2"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>

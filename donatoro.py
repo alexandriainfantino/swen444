@@ -154,13 +154,14 @@ def selection():
 def charityRegistrationOne():
     return render_template('registration/charityRegistration/registrationPage1.jinja')
 
-@app.route('/charityRegistration2', methods=['POST'])
+@app.route('/charityRegistration2', methods=['POST', 'GET'])
 def charityRegistration2():
-    session['charityName'] = request.form['charityName']
-    session['501c'] = request.form['501c']
-    session['tags'] = request.form['tags']
-    session['description'] = request.form['description']
-    session['email'] = request.form['email']
+    if (request.method == 'POST'):
+        session['charityName'] = request.form['charityName']
+        session['501c'] = request.form['501c']
+        session['tags'] = request.form['tags']
+        session['description'] = request.form['description']
+        session['email'] = request.form['email']
     return render_template('registration/charityRegistration/registrationPage2.jinja', states=states, countries=countries)
 
 @app.route('/charityConfirmation', methods=['POST'])
@@ -170,6 +171,7 @@ def charityConfirmation():
     addressInfo.append(request.form['city'])
     addressInfo.append(request.form['state'])
     addressInfo.append(request.form['zip'])
+    session['addressInfo'] = addressInfo
     charityInformation = {"name":session['charityName'], "501c":session['501c'], "tags": session['tags'], "email":session['email'], "billing": addressInfo, "description":session['description']}
     return render_template('registration/charityRegistration/confirmation.jinja', charityInfo = charityInformation)
 
