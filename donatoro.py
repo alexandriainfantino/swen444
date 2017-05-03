@@ -147,6 +147,7 @@ def logout():
 
 @app.route('/selection')
 def selection():
+    session.clear()
     return render_template('registration/selection.jinja')
 
 @app.route('/charityRegistration1')
@@ -180,6 +181,14 @@ def donorRegistration():
 def donorBilling():
     if request.form:
         formData = request.form
+        session['email'] = request.form['email']
+        session['firstName'] =request.form['firstName']
+        session['lastName'] = request.form['lastName']
+        session['streetAddress1'] = request.form['streetAddress1']
+        session['streetAddress2'] = request.form['streetAddress2']
+        session['city'] = request.form['city']
+        session['state'] = request.form['state']
+        session['zip'] = request.form['zip']
         return render_template('registration/donorRegistration/donorBilling.jinja', states=states, formData=formData)
     else:
         return redirect('/donorRegistration')
