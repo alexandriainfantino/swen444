@@ -151,13 +151,23 @@ def selection():
 def charityRegistrationOne():
     return render_template('registration/charityRegistration/registrationPage1.jinja')
 
-@app.route('/charityRegistration2')
+@app.route('/charityRegistration2', methods=['POST'])
 def charityRegistration2():
+    session['charityName'] = request.form['charityName']
+    session['501c'] = request.form['501c']
+    session['tags'] = request.form['tags']
+    session['description'] = request.form['description']
+    session['email'] = request.form['email']
     return render_template('registration/charityRegistration/registrationPage2.jinja', states=states, countries=countries)
 
-@app.route('/charityConfirmation')
+@app.route('/charityConfirmation', methods=['POST'])
 def charityConfirmation():
-    charityInformation = {"name":"Fake Charity", "501c":"123456789", "tags": "Environment", "email":"fakeCharity@fakeCharity.com", "billing": "1 Main St, Rochester, NY, 14623", "description":"This organization is aimed to plant 50,000 new trees every year, as well as replant trees in areas across the country affected by natural disasters. All trees planted will be native to the area they are planted in to avoid introducing invasive species."}
+    addressInfo = []
+    addressInfo.append(request.form['streetAddress'])
+    addressInfo.append(request.form['city'])
+    addressInfo.append(request.form['state'])
+    addressInfo.append(request.form['zip'])
+    charityInformation = {"name":session['charityName'], "501c":session['501c'], "tags": session['tags'], "email":session['email'], "billing": addressInfo, "description":session['description']}
     return render_template('registration/charityRegistration/confirmation.jinja', charityInfo = charityInformation)
 
 @app.route('/donorRegistration')

@@ -6,16 +6,16 @@
 
 {% block body %}
 <div class="formContainer">
-<form action="/charityConfirmation">
+<form action="/charityConfirmation" method="post">
     <div class="form-group">
         <br>
         <label for="">Billing Information</label>
-        <input type="text" class="form-control" id="streetAddress" placeholder="Street Address" required>
+        <input type="text" class="form-control" name="streetAddress" placeholder="Street Address" required>
         <br>
             <div class='row'>
         <div class='col-sm-4'>
             <div class='form-group'>
-                <input class="form-control" id="city" size="30" type="text" placeholder="City" required/>
+                <input class="form-control" name="city" size="30" type="text" placeholder="City" required/>
             </div>
         </div>
         <div class='col-sm-4'>
@@ -30,7 +30,7 @@
         </div>
         <div class='col-sm-4'>
             <div class='form-group'>
-                <input class="form-control" id="zip" size="5" type="text" pattern="[0-9]{5}" placeholder="Zip Code" required
+                <input class="form-control" name="zip" size="5" type="text" pattern="[0-9]{5}" placeholder="Zip Code" required
                        oninvalid="this.setCustomValidity('Please enter a valid 5 digit zip code')"
                            oninput="setCustomValidity('')"/>
             </div>

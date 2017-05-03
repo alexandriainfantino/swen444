@@ -19,11 +19,11 @@
         }
     }
 </script>
-<form action="/charityRegistration2">
+<form action="/charityRegistration2" method="post">
     <div class="form-group">
         <br>
         <label for="">Login Info</label>
-        <input type="email" class="form-control" id="emailInput" placeholder="Charity Email" required>
+        <input type="email" class="form-control" name="email" placeholder="Charity Email" required>
         <br>
         <div id="errorbox" hidden>
         <div id="error" class="rightBox" style="color:red;"></div>
@@ -37,14 +37,14 @@
         <br>
         <label for="">Public Information</label>
         <br>
-        <input type="text" class="form-control leftBox" id="charityName" placeholder="Charity Name" required>
-        <input type="text" class="form-control rightBox" id="501c" placeholder="IRS 501c" required>
+        <input type="text" class="form-control leftBox" name="charityName" placeholder="Charity Name" required>
+        <input type="text" class="form-control rightBox" name="501c" placeholder="IRS 501c" required>
         <br>
         <br>
         <br>
-        <input type="text" class="form-control" id="tags" placeholder="Charity Tags Separated by Spaces"required>
+        <input type="text" class="form-control" name="tags" placeholder="Charity Tags Separated by Spaces"required>
         <br>
-        <input type="text" class="form-control descriptionBox" id="description" placeholder="Charity Description" required>
+        <input type="text" class="form-control descriptionBox" name="description" placeholder="Charity Description" required>
         <br>
 
         <a href="/selection"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
