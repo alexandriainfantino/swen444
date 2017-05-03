@@ -21,7 +21,7 @@
         <input type="text" class="form-control" id="email" value="Charity Email: {{ charityInfo['email'] }}" readonly>
         <br>
         <input type="text" class="form-control" id="address"
-               value="Billing Information:{% for b in charityInfo['billing'] %} {{ b }},{% endfor %}" readonly>
+               value="Billing Information:{% for b in charityInfo['billing'] %} {{ b }}{% if not loop.last %},{% endif %}{% endfor %}" readonly>
         <br>
         <textarea class="form-control" id="description" rows="6" readonly>Charity Description: {{ charityInfo['description'] }}</textarea>
         <br>
