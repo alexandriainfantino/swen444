@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, g, session
+from flask import Flask, render_template, redirect, request, g, session, url_for
 from dataBaseLogic import *
 import sys
 import ast
@@ -103,6 +103,8 @@ def charity_home(charity):
 @app.route('/newsFeed')
 def news_feed():
     charities = getDonorFavorites(session['userId'])
+    if len(charities) < 1:
+        charities = getAllCharities()
     news = []
     message=""
     if session.get('message'):
@@ -164,9 +166,30 @@ def charityConfirmation():
 def donorRegistration():
     return render_template('registration/donorRegistration/donorRegistration.jinja', states=states)
 
-@app.route('/donorBilling')
+@app.route('/donorBilling', methods=["POST"])
 def donorBilling():
-    return render_template('registration/donorRegistration/donorBilling.jinja', states=states)
+    if request.form:
+        formData = request.form
+        return render_template('registration/donorRegistration/donorBilling.jinja', states=states, formData=formData)
+    else:
+        return redirect('/donorRegistration')
+
+@app.route('/donorRegister', methods=["POST"])
+def donorRegister():
+    formData = request.form
+    userId = addDonor(formData['email'], formData['password'], formData['fname'], formData['lname'], formData['addr1'], formData['addr2'], formData['city'], formData['state'], formData['zip'])
+    if formData["ccNum"]:
+        addCreditCard(formData['email'], formData['ccNum'], formData['ccv'], formData['expMonth'], formData['expYear'], formData['ccAddr1'], formData['ccAddr2'], formData['ccCity'], formData['ccState'], formData['ccZip'])
+    user = getUserById(userId)
+    if user != None:
+        session['userId'] = userId
+        session['message'] = 1
+        if user["isDonor"] == 1:
+            return redirect('../newsFeed')
+        else:
+            return redirect('../charity/admin')
+    return redirect('/')
+
 
 @app.route('/donationConfirmation/<charity>', methods=["POST"])
 def donationConfirmation(charity):

@@ -20,11 +20,11 @@
         }
     }
 </script>
-<form action="/donorBilling">
+<form action="/donorBilling" method="post">
     <div class="form-group">
         <br>
         <label for="">Account Information</label>
-        <input type="email" class="form-control" id="emailInput" placeholder="Email" required>
+        <input type="email" class="form-control" id="emailInput" placeholder="Email" required name="email">
         <br> 
 
         <div id="errorbox" hidden>
@@ -33,24 +33,24 @@
         <br>
         </div>
         
-        <input type="password" class="form-control leftBox" id="password" placeholder="Password" required>
+        <input type="password" class="form-control leftBox" id="password" placeholder="Password" required name="password">
         <input type="password" class="form-control rightBox" id="confirmPassword" placeholder="Confirm Password" oninput="check(this)" required>
         <br>
         <br>
         <br>
-        <input type="text" class="form-control leftBox" id="firstName" placeholder="First Name" required>
-        <input type="text" class="form-control rightBox" id="lastName" placeholder="Last Name" required>
+        <input type="text" class="form-control leftBox" id="firstName" placeholder="First Name" required name="fname">
+        <input type="text" class="form-control rightBox" id="lastName" placeholder="Last Name" required name="lname">
         <br>
         <br>
         <br>
-        <input type="text" class="form-control" id="streetAddress1" placeholder="Street Address Line 1" required>
+        <input type="text" class="form-control" id="streetAddress1" placeholder="Street Address Line 1" required name="addr1">
         <br>
-        <input type="text" class="form-control descriptionBox" id="streetAddress2" placeholder="Street Address Line 2">
+        <input type="text" class="form-control descriptionBox" id="streetAddress2" placeholder="Street Address Line 2" name="addr2">
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" id="city" size="30" type="text" placeholder="City" required/>
+                    <input class="form-control" id="city" size="30" type="text" placeholder="City" required name="city" />
                 </div>
             </div>
             <div class='col-sm-4'>
@@ -67,13 +67,13 @@
                 <div class='form-group'>
                     <input class="form-control" id="zip" size="5" type="text" pattern="[0-9]{5}" placeholder="Zip Code"
                            required oninvalid="this.setCustomValidity('Please enter a valid 5 digit zip code')"
-                           oninput="setCustomValidity('')"/>
+                           oninput="setCustomValidity('')" name="zip" />
                 </div>
             </div>
         </div>
 
         <a href="/selection"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
-        <button class="btn btn-success rightBox formButtons" id="save" disabled><b>Next</b></button>
+        <button type="submit" class="btn btn-success rightBox formButtons" id="save" disabled><b>Next</b></button>
 
     </div>
     </form>
