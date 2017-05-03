@@ -25,7 +25,7 @@
     <div class="form-group">
         <br>
         <label for="">Account Information</label>
-        <input type="email" class="form-control" name="email" placeholder="Email" required name="email"
+        <input type="email" class="form-control" placeholder="Email" required name="email"
                 {% if session.get('email') != None %} value ="{{ session['email'] }}"{% endif %}>
         <br> 
 
@@ -40,34 +40,42 @@
         <br>
         <br>
         <br>
-        <input type="text" class="form-control leftBox" name="firstName" placeholder="First Name" required name="fname" {% if session.get('firstName') != None %} value ="{{ session['firstName'] }}"{% endif %}>
-        <input type="text" class="form-control rightBox" name="lastName" placeholder="Last Name" required name="lname" {% if session.get('lastName') != None %} value ="{{ session['lastName'] }}"{% endif %}>
+        <input type="text" class="form-control leftBox" placeholder="First Name" required name="fname" {% if session.get('firstName') != None %} value ="{{ session['firstName'] }}"{% endif %}>
+        <input type="text" class="form-control rightBox" placeholder="Last Name" required name="lname" {% if session.get('lastName') != None %} value ="{{ session['lastName'] }}"{% endif %}>
         <br>
         <br>
         <br>
-        <input type="text" class="form-control" name="streetAddress1" placeholder="Street Address Line 1" required name="addr1" {% if session.get('streetAddress1') != None %} value ="{{ session['streetAddress1'] }}"{% endif %}>
+        <input type="text" class="form-control" placeholder="Street Address Line 1" required name="addr1" {% if session.get('streetAddress1') != None %} value ="{{ session['streetAddress1'] }}"{% endif %}>
         <br>
-        <input type="text" class="form-control descriptionBox" name="streetAddress2" placeholder="Street Address Line 2" name="addr2" {% if session.get('streetAddress2') != None %} value ="{{ session['streetAddress2'] }}"{% endif %}>
+        <input type="text" class="form-control descriptionBox" placeholder="Street Address Line 2" name="addr2" {% if session.get('streetAddress2') != None %} value ="{{ session['streetAddress2'] }}"{% endif %}>
         <br>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" name="city" size="30" type="text" placeholder="City" required name="city" {% if session.get('city') != None %} value ="{{ session['city'] }}"{% endif %} />
+                    <input class="form-control" size="30" type="text" placeholder="City" required name="city" {% if session.get('city') != None %} value ="{{ session['city'] }}"{% endif %} />
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
                      <select class="form-control" name="state" required>
-                        <option value="" disabled selected hidden>State</option>
+                        {% if session.get('state') != None %}
+                            <option>{{ session.get('state') }}</option>
+                        {% else %}
+                            <option value="" disabled selected hidden>State</option>
+                        {% endif %}
                         {% for n in states %}
-                            <option>{{n}}</option>
+                            {% if n != session.get('state') %}
+                                <option>
+                                        {{n}}
+                                </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
             </div>
             <div class='col-sm-4'>
                 <div class='form-group'>
-                    <input class="form-control" name="zip" size="5" type="text" pattern="[0-9]{5}" placeholder="Zip Code"
+                    <input class="form-control" size="5" type="text" pattern="[0-9]{5}" placeholder="Zip Code"
                            required oninvalid="this.setCustomValidity('Please enter a valid 5 digit zip code')"
                            oninput="setCustomValidity('')" name="zip" {% if session.get('zip') != None %} value ="{{ session['zip'] }}"{% endif %} />
                 </div>

@@ -182,10 +182,10 @@ def donorBilling():
     if request.form:
         formData = request.form
         session['email'] = request.form['email']
-        session['firstName'] =request.form['firstName']
-        session['lastName'] = request.form['lastName']
-        session['streetAddress1'] = request.form['streetAddress1']
-        session['streetAddress2'] = request.form['streetAddress2']
+        session['firstName'] =request.form['fname']
+        session['lastName'] = request.form['lname']
+        session['streetAddress1'] = request.form['addr1']
+        session['streetAddress2'] = request.form['addr2']
         session['city'] = request.form['city']
         session['state'] = request.form['state']
         session['zip'] = request.form['zip']
