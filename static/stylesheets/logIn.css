@@ -13,6 +13,11 @@
     border: solid black 1px;
 }
 
+#logo {
+    display: block;
+    margin: 40% auto 0;
+}
+
 .centerContent {
     text-align: center;
 }
