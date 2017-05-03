@@ -76,6 +76,11 @@ def getDonorFavorites(userId):
             query_db('select * from charity_info inner join favorites on charity_info.charID = favorites.charityId '
                      'where favorites.userId=?', (userId,)).fetchall()]
 
+def getAllCharities():
+    return [dict(name=row[0], identificationNum=row[1], description=row[2], streetAdd=row[3],
+                 city=row[4], state=row[5], zip=row[6], country=row[7], userId=row[8], charId=row[9]) for row in
+            query_db('select * from charity_info inner join favorites on charity_info.charID = favorites.charityId').fetchall()]
+
 def getCharityPosts(charityId):
     return [dict(date=row[0], title=row[1], post=row[2], charId=row[3], Id=row[4]) for row in
         query_db('select * from posts where charId=?', (charityId,)).fetchall()]
@@ -114,6 +119,12 @@ def addCreditCard(email, cardNumber, ccv, exp_month, exp_year, streetAdd1, stree
 def addDonation(amount,cc,userID,charityID):
     edit_db('INSERT INTO donation(amount,cc,userID,charityID,date) VALUES (?,?,?,?,?)',
             (amount,cc,userID,charityID,datetime.datetime.now()))
+
+def addDonor(email, password, fname, lname, addr1, addr2, city, state, zip):
+    edit_db('INSERT INTO user(email, password, isDonor) VALUES (?,?,1)', (email, password))
+    user = getUserByEmail(email)
+    edit_db('INSERT INTO donor_info(firstName, lastName, streetAdd1, streetAdd2, city, state, zip, userID) VALUES (?,?,?,?,?,?,?,?)', (fname, lname, addr1, addr2, city, state, zip, user["id"]))
+    return user["id"]
 
 def getTags():
     return [dict(cahrity_id=row[0], tag=row[1], id=row[2]) for row in
