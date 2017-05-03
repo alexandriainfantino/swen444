@@ -30,7 +30,7 @@
         <div>
             {% for n in news %}
                 <div>
-                    {{ n['title'] }} - {{ n['date'] }}
+                    {{ n['title'] }} - {{ n['date'][:10] }}
                 </div>
                 <br>
                 <div class="article">
