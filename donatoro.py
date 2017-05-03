@@ -330,37 +330,42 @@ def charity_admin_stats():
 
 @app.route('/results', methods=['GET'])
 def results():
-    # results = [
-    #     {'Title':'Electronic Frontier Foundation','Description':'EFF'}
-    #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
-    #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
-    # ]
-
-    #search_term = request.form['searchQuery']
     search_term = ""
     if 'searchQuery' in request.args:
         search_term = request.args['searchQuery']
     user = getUserById(session['userId'])
+    all_charities = getCharities()
     if user["isDonor"] == 1:
-        info = getInfoByUserId(session['userId'])
         all_tags = getTags()
         search_tags = []
-        for item in all_tags:
-            if search_term in str(item['tag']):
-                search_tags.append(item['tag'])
+        for charity in all_tags:
+            if search_term.lower() in str(charity['tag']).lower():
+                search_tags.append(charity['tag'])
 
         search_results = []
         counter = 0
         temp = []
         for tag in search_tags:
-            for item in getCharitiesByTags(tag):
+            for charity in getCharitiesByTags(tag):
                 temp.append(
-                    {'Description':item['description'],
-                     'Title':item['name']
+                    {'Description':charity['description'],
+                     'Title':charity['name']
                      }
                 )
                 counter+=1
                 if counter%2 ==0:
+                    search_results.append(temp)
+                    temp = []
+            if len(temp) != 0:
+                search_results.append(temp)
+        for charity in all_charities:
+            if search_term.lower() in str(charity['name']).lower():
+                temp.append(
+                    {'Description':charity['description'],
+                     'Title':charity['name']}
+                )
+                counter += 1
+                if counter % 2 == 0:
                     search_results.append(temp)
                     temp = []
             if len(temp) != 0:

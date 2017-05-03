@@ -116,6 +116,9 @@ def addDonation(amount,cc,userID,charityID):
             (amount,cc,userID,charityID,datetime.datetime.now()))
 
 def getTags():
-    return [dict(cahrity_id=row[0], tag=row[1], id=row[2]) for row in
+    return [dict(charity_id=row[0], tag=row[1], id=row[2]) for row in
             query_db('select * from tags').fetchall()]
 
+def getCharities():
+    return [dict(name=row[0], description=row[1], id=row[2]) for row in
+            query_db('select name,description,charID from charity_info').fetchall()]
