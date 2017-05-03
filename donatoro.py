@@ -358,21 +358,36 @@ def results():
                     temp = []
             if len(temp) != 0:
                 search_results.append(temp)
-        for charity in all_charities:
-            if search_term.lower() in str(charity['name']).lower():
-                temp.append(
-                    {'Description':charity['description'],
-                     'Title':charity['name']}
-                )
-                counter += 1
-                if counter % 2 == 0:
-                    search_results.append(temp)
-                    temp = []
-            if len(temp) != 0:
-                search_results.append(temp)
+
+        add_results(search_term, search_results, all_charities, 'name', temp, counter)
+        # for charity in all_charities:
+        #     if search_term.lower() in str(charity['name']).lower():
+        #         temp.append(
+        #             {'Description':charity['description'],
+        #              'Title':charity['name']}
+        #         )
+        #         counter += 1
+        #         if counter % 2 == 0:
+        #             search_results.append(temp)
+        #             temp = []
+        #     if len(temp) != 0:
+        #         search_results.append(temp)
 
         return render_template_logged_in('searchResults.jinja', results=search_results, query=search_term)
 
+def add_results(search_term, search_results, search_lst, property, temp, counter):
+    for item in search_lst:
+        if search_term.lower() in str(item[property]).lower():
+            temp.append(
+                {'Description': item['description'],
+                 'Title': item['name']}
+            )
+            counter += 1
+            if counter % 2 == 0:
+                search_results.append(temp)
+                temp = []
+        if len(temp) != 0:
+            search_results.append(temp)
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
