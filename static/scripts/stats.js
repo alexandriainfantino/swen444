@@ -14,6 +14,8 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+        response: true,
+        maintainAspectRatio: false,
         scale: {
             yAxes: [{
                 ticks: {
@@ -47,7 +49,10 @@ var myChart = new Chart(ctx1, {
             },
         ],
    },
-    options: {}
+    options: {
+        response: true,
+        maintainAspectRatio: false
+   }
 });
 
 
