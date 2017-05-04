@@ -1,11 +1,8 @@
 #loginContainer {
-    position: absolute;
+    margin: auto;
     width: 300px;
     height: 350px;
     z-index: 15;
-    top: 50%;
-    left: 50%;
-    margin: -100px 0 0 -150px;
     background: white;
     border-radius: 5px;
     padding: 30px;
@@ -14,8 +11,9 @@
 }
 
 #logo {
+    max-width: 100%;
     display: block;
-    margin: 40% auto 0;
+    margin: 50 auto;
 }
 
 .centerContent {
