@@ -122,3 +122,8 @@ def getTags():
 def getCharities():
     return [dict(name=row[0], description=row[1], id=row[2]) for row in
             query_db('select name,description,charID from charity_info').fetchall()]
+
+def getCharityTags():
+    return [dict(name=row[0], description=row[1], tag=row[2]) for row in
+            query_db('select name, description, tag from charity_info, tags '
+                     'where charity_info.charID = tags.charityId').fetchall()]
