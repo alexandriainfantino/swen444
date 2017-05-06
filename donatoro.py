@@ -351,7 +351,6 @@ def results():
             temp = add_results("", search_results, found_charity, all_charities, 'tag', temp, counter)
             temp = add_results("", search_results, found_charity, all_charities, 'name', temp, counter)
         # In case there's an odd number of results.
-        print "Temp", temp
         if len(temp) != 0:
             search_results.append(temp)
         # Add all tags to the charity search result, for user to see.
@@ -369,12 +368,10 @@ Must be a list of dictionaries, including the charity name, description, tag,
 and what is being filtered against.
 """
 def add_results(search_term, search_results, found_charity, search_lst, property, temp, counter):
-    print "List:",search_lst
     for charity in search_lst:
         if search_term.lower() in str(charity[property]).lower():
             print "Charity Info:", charity['name'], charity['description'], charity['tag']
             if charity['name'] not in found_charity:
-                print "First time"
                 temp.append(
                     {'Description': charity['description'],
                      'Title': charity['name'],
@@ -382,7 +379,6 @@ def add_results(search_term, search_results, found_charity, search_lst, property
                 )
                 counter += 1
                 if counter % 2 == 0:
-                    print "Even number"
                     search_results.append(temp)
                     temp = []
                 found_charity.append(charity['name'])
