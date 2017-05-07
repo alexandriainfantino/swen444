@@ -226,6 +226,8 @@ def donationConfirmation(charity):
             donation['radio'] = "saved"
     # User using a new card.
     if request.form['radio'] == "new":
+        if "Save" in request.form:
+            donation['Save'] = request.form['Save']
         # Billing Location Info Submitted
         if "streetAddress1" in request.form:
             donation['streetAddress1'] = request.form['streetAddress1']
@@ -294,6 +296,8 @@ def donate(charity):
             # Going back from confirmation page to donate page, after filling in new credit card.
             if request.form['radio'] == "new":
                 donation['radio'] = "new"
+                if "Save" in request.form:
+                    donation['Save'] = request.form['Save']
                 if "streetAddress1" in request.form:
                     donation['streetAddress1'] = request.form['streetAddress1']
                 else:
@@ -350,18 +354,47 @@ def donate(charity):
 
 @app.route('/enterDonation', methods=['POST'])
 def enter_donation():
-    addr1 = request.form['streetAddress1']
-    addr2 = request.form['streetAddress2']
-    city = request.form['city']
-    state = request.form['state']
-    zip = request.form['zip']
-    ccNum = request.form['ccNum']
-    ccv = request.form['ccv']
-    expMonth = request.form['expMonth']
-    expYear = request.form['expYear']
-    amount = request.form['amount']
-    charity = request.form['charity']
-    session['message'] = 2
+    user = getUserById(session['userId'])
+    if user["isDonor"] == 1:
+        addr1 = ""
+        addr2 = ""
+        city = ""
+        state = ""
+        zip = ""
+        ccNum = ""
+        ccv = ""
+        expMonth = ""
+        expYear = ""
+        amount = ""
+        charity = ""
+        if 'streetAddress1' in request.form:
+            addr1 = request.form['streetAddress1']
+        if 'streetAddress2' in request.form:
+            addr2 = request.form['streetAddress2']
+        if 'city' in request.form:
+            city = request.form['city']
+        if 'state' in request.form:
+            state = request.form['state']
+        if 'zip' in request.form:
+            zip = request.form['zip']
+        if 'ccNum' in request.form:
+            ccNum = request.form['ccNum']
+        if 'ccv' in request.form:
+            ccv = request.form['ccv']
+        if 'expMonth' in request.form:
+            expMonth = request.form['expMonth']
+        if 'expYear' in request.form:
+            expYear = request.form['expYear']
+        if 'amount' in request.form:
+            amount = request.form['amount']
+        if 'charity' in request.form:
+            charity = request.form['charity']
+            charityID = getCharityInfoByName(charity)['charId']
+        session['message'] = 2
+        addDonation(amount,ccNum,user['id'],charityID)
+        if 'Save' in request.form:
+            if request.form['Save'] == "saved":
+                addCreditCard(user['email'],ccNum,ccv,expMonth,expYear,addr1,addr2,city,state,zip)
     return redirect('/newsFeed')
 
 @app.route('/charity/admin')
