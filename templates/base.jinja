@@ -17,7 +17,7 @@
         {% if user and user["isDonor"] %}
         <a href="/newsFeed"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
         {% elif user and not user["isDonor"] %}
-        <a href="/charity/admin"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
+        <a href="/charity/admin"><img src="/static/images/Donatoro-logo.png" class="logo" style="float: left;"/></a>
         {% else %}
         <a href="/"><img src="/static/images/Donatoro-logo.png" class="logo"/></a>
         {% endif %}
@@ -35,9 +35,9 @@
             {% if user["isDonor"] %}
                 <button class="dropdown-toggle username" type="button" data-toggle="dropdown">{{ userInfo["firstName"] }} {{ userInfo["lastName"] }}<span class="caret"></span></button>
             {% else %}
-                <button class="dropdown-toggle username" type="button" data-toggle="dropdown">{{ userInfo["name"] }}<span class="caret"></span></button>
+                <button class="dropdown-toggle username" type="button" data-toggle="dropdown" style="float: right;">{{ userInfo["name"] }}<span class="caret"></span></button>
             {% endif %}
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" style="right: 0; left: inherit;">
                 <li><a href="../profile">My Profile</a></li>
                 <li><a href="../logout">Sign Out</a></li>
             </ul>

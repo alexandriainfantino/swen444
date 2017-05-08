@@ -162,6 +162,7 @@ def charityRegistration2():
         session['tags'] = request.form['tags']
         session['description'] = request.form['description']
         session['email'] = request.form['email']
+        session['pass'] = request.form['password']
     return render_template('registration/charityRegistration/registrationPage2.jinja', states=states, countries=countries)
 
 @app.route('/charityConfirmation', methods=['POST'])
@@ -172,8 +173,22 @@ def charityConfirmation():
     addressInfo.append(request.form['state'])
     addressInfo.append(request.form['zip'])
     session['addressInfo'] = addressInfo
-    charityInformation = {"name":session['charityName'], "501c":session['501c'], "tags": session['tags'], "email":session['email'], "billing": addressInfo, "description":session['description']}
+    charityInformation = {"name":session['charityName'], "501c":session['501c'], "tags": session['tags'], "email":session['email'], "pass":session['pass'], "billing": addressInfo, "description":session['description']}
     return render_template('registration/charityRegistration/confirmation.jinja', charityInfo = charityInformation)
+
+@app.route('/charityRegister', methods=['POST'])
+def charityRegister():
+    formData = request.form
+    userId = addCharity(formData['email'], formData['password'], formData['name'], formData['501c'], formData['tags'], formData['desc'], formData['addr'], formData['city'], formData['state'], formData['zip'])
+    user = getUserById(userId)
+    if user != None:
+        session['userId'] = userId
+        session['message'] = 1
+        if user["isDonor"] == 1:
+            return redirect('../newsFeed')
+        else:
+            return redirect('../charity/admin')
+    return redirect('/')
 
 @app.route('/donorRegistration')
 def donorRegistration():
