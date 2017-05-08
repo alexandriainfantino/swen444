@@ -6,7 +6,7 @@
 
 {% block body %}
 <div class="formContainer">
-<form action="/">
+<form action="">
     <div class="form-group">
         <br>
         <label for="">Is this information correct?</label>
@@ -31,8 +31,20 @@
             {% if session.get('description') != None %} {{ session.get('description') }}{% endif %}</textarea>
         <br>
 </form>
-        <a href="/charityRegistration2"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
-        <button class="btn btn-success rightBox formButtons"><b>Submit</b></button>
-    </div>
+<form action="/charityRegister" method="post">
+    <input type="text" hidden name="email" value="{{charityInfo["email"]}}">
+    <input type="text" hidden name="password" value="{{charityInfo["pass"]}}">
+    <input type="text" hidden name="name" value="{{charityInfo["name"]}}">
+    <input type="text" hidden name="501c" value="{{charityInfo["501c"]}}">
+    <input type="text" hidden name="tags" value="{{charityInfo["tags"]}}">
+    <input type="text" hidden name="desc" value="{{charityInfo["description"]}}">
+    <input type="text" hidden name="addr" value="{{charityInfo["billing"][0]}}">
+    <input type="text" hidden name="city" value="{{charityInfo["billing"][1]}}">
+    <input type="text" hidden name="state" value="{{charityInfo["billing"][2]}}">
+    <input type="text" hidden name="zip" value="{{charityInfo["billing"][3]}}">
+    <a href="/charityRegistration2"><button type="button" class="btn btn-grey leftBox formButtons"><b>Back</b></button></a>
+    <input type="submit" class="btn btn-success rightBox formButtons" style="font-weight: 700;">
+</form>
+</div>
 </div>
 {% endblock %}

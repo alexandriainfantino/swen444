@@ -126,6 +126,14 @@ def addDonor(email, password, fname, lname, addr1, addr2, city, state, zip):
     edit_db('INSERT INTO donor_info(firstName, lastName, streetAdd1, streetAdd2, city, state, zip, userID) VALUES (?,?,?,?,?,?,?,?)', (fname, lname, addr1, addr2, city, state, zip, user["id"]))
     return user["id"]
 
+def addCharity(email, password, name, c501, tags, desc, addr, city, state, zip):
+    edit_db('INSERT INTO user(email, password, isDonor) VALUES (?,?,0)', (email, password))
+    user = getUserByEmail(email)
+    edit_db('INSERT INTO charity_info(name, "501c", description, streetAddress, city, state, zip, country, userID) VALUES (?,?,?,?,?,?,?,?,?)', (name, c501, desc, addr, city, state, int(zip), "United States", user["id"]))
+    for tag in tags.split(" "):
+        edit_db('INSERT INTO tags(charityId, tag) VALUES (?,?)', (user["id"], tag))
+    return user["id"]
+
 def getTags():
     return [dict(charity_id=row[0], tag=row[1], id=row[2]) for row in
             query_db('select * from tags').fetchall()]
