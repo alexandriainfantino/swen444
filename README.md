@@ -35,7 +35,7 @@ Next, open a web browser and go to `127.0.0.1:5000` if the port number is not sp
 
 There is also a hosted version of Donatoro available at [vm343f.se.rit.edu:5500](http://vm343f.se.rit.edu:5500/) for the remainder of the 2017 Spring semester.
 
-##Default Login Info
+## Default Login Info
 **Login as a Charity Representative:**
 **Email**: charity@charity.com
 
@@ -55,7 +55,7 @@ There is also a hosted version of Donatoro available at [vm343f.se.rit.edu:5500]
 4. On login page, 'Remember Me' does not function.
 5. Input validation. Some forms do not prompt user that field should be filled in before submitting. Others, such as email fields, do not enforce uniqueness.
 
-##Available For Demonstration
+## Available For Demonstration
 1. Graphs on charity statistic page are modelled of hardcoded data instead of donation data.
 
 ## Bugs
