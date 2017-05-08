@@ -407,44 +407,59 @@ def charity_admin_stats():
 
 @app.route('/results', methods=['GET'])
 def results():
-    # results = [
-    #     {'Title':'Electronic Frontier Foundation','Description':'EFF'}
-    #     ,{'Title':'Canonical','Description':'Creators of Ubuntu'}
-    #     #,{'Title':'I Love Trees', 'Description':'We Plant Trees'}
-    # ]
-
-    #search_term = request.form['searchQuery']
-    search_term = ""
+    # Safely grab search query.
+    args = ""
     if 'searchQuery' in request.args:
-        search_term = request.args['searchQuery']
+        args = request.args['searchQuery']
+    search_terms = args.split()
     user = getUserById(session['userId'])
+    all_charities = getCharityTags()
     if user["isDonor"] == 1:
-        info = getInfoByUserId(session['userId'])
-        all_tags = getTags()
-        search_tags = []
-        for item in all_tags:
-            if search_term in str(item['tag']):
-                search_tags.append(item['tag'])
-
+        found_charity = []
         search_results = []
         counter = 0
         temp = []
-        for tag in search_tags:
-            for item in getCharitiesByTags(tag):
+        # For each word searched, look for it in tags and names.
+        if args != "":
+            for search_term in search_terms:
+                temp = add_results(search_term,search_results, found_charity, all_charities, 'tag', temp, counter)
+                temp = add_results(search_term, search_results, found_charity, all_charities, 'name', temp, counter)
+        else:
+            temp = add_results("", search_results, found_charity, all_charities, 'tag', temp, counter)
+            temp = add_results("", search_results, found_charity, all_charities, 'name', temp, counter)
+        # In case there's an odd number of results.
+        if len(temp) != 0:
+            search_results.append(temp)
+        # Add all tags to the charity search result, for user to see.
+        for item in search_results:
+            for result in item:
+                for charity in all_charities:
+                    if result['Title'] == charity['name']:
+                        result['Tag'] += (charity['tag'] + ", ")
+                result['Tag'] = result['Tag'][:-2]
+
+        return render_template_logged_in('searchResults.jinja', results=search_results)
+
+"""
+Must be a list of dictionaries, including the charity name, description, tag, 
+and what is being filtered against.
+"""
+def add_results(search_term, search_results, found_charity, search_lst, property, temp, counter):
+    for charity in search_lst:
+        if search_term.lower() in str(charity[property]).lower():
+            print "Charity Info:", charity['name'], charity['description'], charity['tag']
+            if charity['name'] not in found_charity:
                 temp.append(
-                    {'Description':item['description'],
-                     'Title':item['name']
-                     }
+                    {'Description': charity['description'],
+                     'Title': charity['name'],
+                     'Tag':""}
                 )
-                counter+=1
-                if counter%2 ==0:
+                counter += 1
+                if counter % 2 == 0:
                     search_results.append(temp)
                     temp = []
-            if len(temp) != 0:
-                search_results.append(temp)
-
-        return render_template_logged_in('searchResults.jinja', results=search_results, query=search_term)
-
+                found_charity.append(charity['name'])
+    return temp
 
 if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD'] = True
