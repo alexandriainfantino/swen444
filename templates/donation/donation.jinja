@@ -15,7 +15,7 @@
                 <input type="radio" name="radio" value="new" {% if donation['radio']=="new" %} checked="checked" {% endif %}> Use New Card
             </span>
             <span class="right">
-                <input type="checkbox" name="Save" value="saved"> Save This Card
+                <input type="checkbox" name="Save" value="saved" {% if donation['Save']=="saved" %} checked="checked" {% endif %}> Save This Card
             </span>
             <br>
             <br>
