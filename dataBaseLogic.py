@@ -130,8 +130,9 @@ def addCharity(email, password, name, c501, tags, desc, addr, city, state, zip):
     edit_db('INSERT INTO user(email, password, isDonor) VALUES (?,?,0)', (email, password))
     user = getUserByEmail(email)
     edit_db('INSERT INTO charity_info(name, "501c", description, streetAddress, city, state, zip, country, userID) VALUES (?,?,?,?,?,?,?,?,?)', (name, c501, desc, addr, city, state, int(zip), "United States", user["id"]))
+    charity = getCharityInfoByName(name)
     for tag in tags.split(" "):
-        edit_db('INSERT INTO tags(charityId, tag) VALUES (?,?)', (user["id"], tag))
+        edit_db('INSERT INTO tags(charityId, tag) VALUES (?,?)', (charity["charId"], tag))
     return user["id"]
 
 def getTags():
